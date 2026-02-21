@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bewerbung – Sheriff Department | Jeff Jeremain</title>
+  <meta name="description" content="Bewerbung für das Sheriff Department – Jeff Jeremain (Visumstufe 14)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#07080b;
+      --bg1:#0b0d12;
+      --card:#0d1017;
+      --ink:#eef2ff;
+      --muted:#b8c0d4;
+      --muted2:#8e97ad;
+
+      --gold:#d7b46a;
+      --gold2:#b48a38;
+
+      --line:rgba(215,180,106,.35);
+      --line2:rgba(215,180,106,.18);
+
+      --shadow:rgba(0,0,0,.6);
+      --glow:rgba(215,180,106,.22);
+
+      --ok:rgba(77, 218, 145, .18);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 500px at 20% 15%, rgba(215,180,106,.14), transparent 55%),
+        radial-gradient(800px 500px at 80% 85%, rgba(215,180,106,.10), transparent 60%),
+        linear-gradient(135deg, var(--bg0), var(--bg1));
+      padding: 40px 18px;
+      overflow-x:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    /* subtle texture */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 3px 3px, 48px 48px, 48px 48px;
+      opacity:.18;
+      mix-blend-mode: overlay;
+    }
+
+    .wrap{
+      width:100%;
+      max-width: 980px;
+      background:
+        linear-gradient(180deg, rgba(13,16,23,.92), rgba(9,11,16,.92));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow:
+        0 24px 80px var(--shadow),
+        0 0 46px var(--glow);
+      overflow:hidden;
+      position:relative;
+      animation: in 900ms ease-out;
+    }
+
+    @keyframes in{
+      from{opacity:0; transform: translateY(14px)}
+      to{opacity:1; transform: translateY(0)}
+    }
+
+    /* header */
+    .hero{
+      padding: 26px 24px 18px;
+      position:relative;
+      overflow:hidden;
+      border-bottom: 1px solid var(--line2);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(215,180,106,.22), transparent 62%);
+      filter: blur(1px);
+      opacity:.8;
+    }
+
+    .toprow{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      flex: 1 1 520px;
+      min-width: 280px;
+      padding: 16px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line2);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .emblem{
+      width: 84px;
+      height: 84px;
+      flex: 0 0 auto;
+      border-radius: 18px;
+      border: 1px solid var(--line2);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(215,180,106,.25), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.10));
+      display:grid;
+      place-items:center;
+      box-shadow: 0 0 22px rgba(215,180,106,.12);
+      position:relative;
+    }
+
+    .star{
+      width: 54px;
+      height: 54px;
+      filter: drop-shadow(0 0 10px rgba(215,180,106,.20));
+    }
+
+    .title{
+      position:relative;
+      z-index:1;
+    }
+
+    .title h1{
+      font-family: Oswald, Inter, sans-serif;
+      letter-spacing: .8px;
+      font-weight: 700;
+      font-size: 38px;
+      line-height:1.05;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(215,180,106,.18);
+    }
+    .title p{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height:1.4;
+    }
+
+    .seal{
+      flex: 0 0 auto;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px dashed rgba(215,180,106,.55);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      text-align:right;
+      min-width: 220px;
+    }
+    .seal .kicker{
+      font-family: Oswald, Inter, sans-serif;
+      letter-spacing:.6px;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+    .seal .small{
+      margin-top: 6px;
+      color: var(--muted2);
+      font-size: 13px;
+      line-height:1.45;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 14px;
+    }
+    .pill{
+      border: 1px solid rgba(215,180,106,.28);
+      background: rgba(0,0,0,.18);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #e9ecf7;
+    }
+    .pill strong{ color: var(--gold); font-weight: 800; }
+
+    /* content */
+    .content{
+      padding: 18px 24px 22px;
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap: 16px;
+    }
+
+    .card{
+      background: rgba(0,0,0,.16);
+      border: 1px solid var(--line2);
+      border-radius: 18px;
+      padding: 16px 16px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+    }
+
+    .letter{
+      position:relative;
+      overflow:hidden;
+      padding: 18px 18px;
+      line-height: 1.75;
+      font-size: 16.5px;
+      color: #eef2ff;
+    }
+    .letter::before{
+      content:"";
+      position:absolute;
+      right:-70px;
+      top:-80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 2px solid rgba(215,180,106,.16);
+      box-shadow: 0 0 0 12px rgba(215,180,106,.05) inset;
+      opacity:.45;
+    }
+    .letter h2{
+      font-family: Oswald, Inter, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      font-size: 18px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .signature{
+      margin-top: 16px;
+      text-align:right;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .side h3{
+      font-family: Oswald, Inter, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .kv{
+      display:grid;
+      gap:10px;
+    }
+    .kv .row{
+      border-left: 4px solid var(--gold);
+      background: rgba(0,0,0,.12);
+      padding: 12px 12px;
+      border-radius: 14px;
+      box-shadow: 0 0 0 1px rgba(215,180,106,.08) inset;
+    }
+    .kv .row .k{
+      color: var(--muted2);
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing:.6px;
+    }
+    .kv .row .v{
+      margin-top: 2px;
+      font-weight: 700;
+      color: #f2f5ff;
+    }
+
+    .chips{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top: 12px;
+    }
+    .chip{
+      border: 1px solid rgba(215,180,106,.22);
+      background: rgba(0,0,0,.14);
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-size: 13px;
+      color:#e9ecf7;
+    }
+    .chip::before{
+      content:"";
+      display:inline-block;
+      width:8px; height:8px;
+      border-radius:999px;
+      margin-right:8px;
+      background: rgba(215,180,106,.9);
+      box-shadow: 0 0 12px rgba(215,180,106,.25);
+      vertical-align: middle;
+    }
+
+    .note{
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted2);
+      line-height:1.5;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(77,218,145,.20);
+      background: linear-gradient(180deg, rgba(77,218,145,.10), rgba(0,0,0,.10));
+    }
+
+    .footer{
+      padding: 14px 24px 18px;
+      border-top: 1px solid var(--line2);
+      color: #7f88a1;
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    a.btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(215,180,106,.35);
+      background: rgba(0,0,0,.16);
+      color: #f1f4ff;
+      text-decoration:none;
+      font-weight: 700;
+    }
+    a.btn:hover{
+      border-color: rgba(215,180,106,.55);
+      box-shadow: 0 0 24px rgba(215,180,106,.18);
+      transform: translateY(-1px);
+    }
+
+    /* responsive */
+    @media (max-width: 900px){
+      .content{ grid-template-columns: 1fr; }
+      .seal{ width:100%; text-align:left; }
+    }
+
+    /* simple inline SVG star fill */
+    .star path{ fill: rgba(215,180,106,.92); }
+    .star .inner{ fill: rgba(0,0,0,.35); }
+  </style>
+</head>
+
+<body>
+  <main class="wrap" role="main" aria-label="Bewerbung Sheriff Department">
+
+    <header class="hero">
+      <div class="toprow">
+        <section class="badge" aria-label="Header">
+          <div class="emblem" aria-hidden="true">
+            <!-- Sheriff's star emblem (inline SVG) -->
+            <svg class="star" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M50 6l10 18 21-3-6 20 16 14-19 8 2 21-18-11-18 11 2-21-19-8 16-14-6-20 21 3z"/>
+              <path class="inner" d="M50 24l6 10 12-2-3 11 9 8-11 5 1 12-10-6-10 6 1-12-11-5 9-8-3-11 12 2z"/>
+            </svg>
+          </div>
+
+          <div class="title">
+            <h1>Sheriff Department</h1>
+            <p>Bewerbung • Retro Roleplay • Dienst & Verantwortung</p>
+
+            <div class="pillrow">
+              <div class="pill"><strong>Name:</strong> Jeff Jeremain</div>
+              <div class="pill"><strong>Visum:</strong> 14</div>
+              <div class="pill"><strong>Alter IC:</strong> 36</div>
+              <div class="pill"><strong>Alter OOC:</strong> 19</div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="seal" aria-label="Kurzprofil">
+          <div class="kicker">Integrity • Service • Respect</div>
+          <div class="small">
+            Seriöses, dezentes Sheriff-Design<br>
+            mit Gold-Akzenten & Emblem-Stil
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section class="content">
+      <article class="card letter" aria-label="Bewerbungstext">
+        <h2>Schriftliche Bewerbung</h2>
+        Sehr geehrtes Sheriff Department,
+        <br><br>
+        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es, aktiv zur Sicherheit der Stadt
+        beizutragen und das Department zuverlässig, respektvoll und professionell zu vertreten.
+        <br><br>
+        Ich lege großen Wert auf Disziplin, Teamarbeit und einen sauberen Umgangston. Mir ist bewusst, dass die Arbeit
+        im Department nicht nur Präsenz, sondern auch Verantwortung bedeutet: ruhiges Handeln in stressigen Situationen,
+        klare Kommunikation und der korrekte Umgang mit Bürgern stehen für mich an erster Stelle.
+        <br><br>
+        Durch meine Visumstufe 14 bringe ich bereits eine solide Stadterfahrung mit. Ich kenne wichtige Orte und Wege,
+        kann Situationen schnell einschätzen und bleibe auch unter Druck konzentriert. Zusätzlich bin ich bereit,
+        mich an interne Abläufe, Hierarchien und Dienstvorschriften zu halten und mich stetig weiterzuentwickeln.
+        <br><br>
+        Ich würde mich freuen, die Chance zu bekommen, mich im persönlichen Gespräch oder in einer Probephase
+        zu beweisen. Vielen Dank für Ihre Zeit und die Bearbeitung meiner Bewerbung.
+        <div class="signature">
+          Mit freundlichen Grüßen<br>
+          Jeff Jeremain
+        </div>
+      </article>
+
+      <aside class="card side" aria-label="Daten & Stärken">
+        <h3>Steckbrief</h3>
+        <div class="kv">
+          <div class="row">
+            <div class="k">Name</div>
+            <div class="v">Jeff Jeremain</div>
+          </div>
+          <div class="row">
+            <div class="k">Visumstufe</div>
+            <div class="v">14</div>
+          </div>
+          <div class="row">
+            <div class="k">Alter (IC)</div>
+            <div class="v">36 Jahre</div>
+          </div>
+          <div class="row">
+            <div class="k">Alter (OOC)</div>
+            <div class="v">19 Jahre</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:16px;">Stärken</h3>
+        <div class="chips" aria-label="Stärken">
+          <div class="chip">Ruhig unter Druck</div>
+          <div class="chip">Teamfähig</div>
+          <div class="chip">Respektvoll</div>
+          <div class="chip">Zuverlässig & pünktlich</div>
+          <div class="chip">Saubere Kommunikation</div>
+          <div class="chip">Lernbereit</div>
+        </div>
+
+        <div class="note">
+          Hinweis: Wenn du willst, kann ich hier zusätzlich
+          <b>„Erfahrung / Vorstrafenfrei / Verfügbarkeit / RP-Stil“</b>
+          reinschreiben (ohne deinen Text zu verändern).
+        </div>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <div>Retro Roleplay – Sheriff Department Bewerbung</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="#" onclick="window.print(); return false;">🖨️ Drucken / PDF</a>
+        <a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">⬆️ Nach oben</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
