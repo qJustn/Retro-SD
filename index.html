@@ -14,7 +14,6 @@
     :root{
       --bg0:#07080b;
       --bg1:#0b0d12;
-      --card:#0d1017;
 
       --ink:#eef2ff;
       --muted:#b8c0d4;
@@ -23,11 +22,13 @@
       --gold:#d7b46a;
       --gold2:#b48a38;
 
-      --line:rgba(215,180,106,.40);
+      --line:rgba(215,180,106,.42);
       --line2:rgba(215,180,106,.18);
 
       --shadow:rgba(0,0,0,.62);
       --glow:rgba(215,180,106,.18);
+      --uiGlow: rgba(215,180,106,.25);
+      --uiGlow2: rgba(215,180,106,.12);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -89,9 +90,175 @@
       transform: rotate(-10deg);
     }
 
-    /* Header */
+    /* ===== Logo Area (Top) ===== */
+    .logo-area{
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line2);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .logo-area::before{
+      content:"";
+      position:absolute;
+      inset:-120px -160px auto auto;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(215,180,106,.20), transparent 62%);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    .logo-slot{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex: 1 1 520px;
+      min-width: 280px;
+      border: 1px solid var(--line2);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 0 18px rgba(215,180,106,.10);
+      padding: 14px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* RP-UI subtle glow + blink */
+    .logo-slot::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 18px;
+      pointer-events:none;
+      border: 1px solid rgba(215,180,106,.10);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      animation: uiPulse 3.2s ease-in-out infinite;
+    }
+
+    @keyframes uiPulse{
+      0%, 100% { box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset, 0 0 16px var(--uiGlow2); }
+      50%      { box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset, 0 0 26px var(--uiGlow); }
+    }
+
+    .logo-box{
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
+      border: 1px dashed rgba(215,180,106,.55);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.14));
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+      position:relative;
+    }
+
+    /* Put your logo image here by replacing the src */
+    .logo-box img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .logo-hint{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      padding:10px;
+      text-align:center;
+      color: var(--muted2);
+      font-size: 12.5px;
+      line-height:1.35;
+    }
+
+    .logo-meta{
+      position:relative;
+      z-index:1;
+    }
+
+    .logo-meta .dept{
+      font-family: Oswald, Inter, sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.9px;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 18px;
+      line-height:1.1;
+    }
+    .logo-meta .sub{
+      margin-top:6px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height:1.45;
+    }
+
+    .mini-tags{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .mini-tag{
+      border: 1px solid rgba(215,180,106,.24);
+      background: rgba(0,0,0,.14);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      color:#e9ecf7;
+      white-space:nowrap;
+    }
+
+    /* small indicator dot (RP UI) */
+    .status{
+      flex: 0 0 auto;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border: 1px solid var(--line2);
+      border-radius: 18px;
+      background: rgba(0,0,0,.14);
+      padding: 12px 14px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: rgba(215,180,106,.95);
+      box-shadow: 0 0 14px rgba(215,180,106,.30);
+      animation: blink 2.6s ease-in-out infinite;
+    }
+    @keyframes blink{
+      0%, 100% { opacity:.35; transform: scale(0.95); }
+      50%      { opacity:1;    transform: scale(1.15); }
+    }
+
+    .status .txt{
+      font-size: 12.5px;
+      color: var(--muted2);
+      line-height:1.35;
+    }
+    .status .txt b{
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    /* Header (Title + applicant) */
     header{
-      padding: 26px 22px 18px;
+      padding: 22px 22px 18px;
       border-bottom: 1px solid var(--line2);
       position:relative;
     }
@@ -126,8 +293,22 @@
       width: 360px;
       height: 360px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, rgba(215,180,106,.25), transparent 62%);
+      background: radial-gradient(circle at 35% 30%, rgba(215,180,106,.18), transparent 62%);
       opacity:.75;
+    }
+
+    /* Subtle UI glow on hero too */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 18px;
+      pointer-events:none;
+      animation: heroGlow 4.2s ease-in-out infinite;
+    }
+    @keyframes heroGlow{
+      0%,100%{ box-shadow: 0 0 18px rgba(215,180,106,.08); }
+      50%    { box-shadow: 0 0 28px rgba(215,180,106,.16); }
     }
 
     .badge{
@@ -200,6 +381,22 @@
       justify-content:center;
       gap:6px;
       min-height: 88px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* a tiny pulse for the seal */
+    .seal::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius:18px;
+      pointer-events:none;
+      animation: sealPulse 5s ease-in-out infinite;
+    }
+    @keyframes sealPulse{
+      0%,100%{ box-shadow: 0 0 14px rgba(215,180,106,.08); }
+      50%    { box-shadow: 0 0 24px rgba(215,180,106,.14); }
     }
 
     .seal .kicker{
@@ -209,12 +406,16 @@
       font-weight: 700;
       color: var(--gold);
       font-size: 16px;
+      position:relative;
+      z-index:1;
     }
 
     .seal .small{
       color: var(--muted2);
       font-size: 13px;
       line-height:1.45;
+      position:relative;
+      z-index:1;
     }
 
     /* Decorative divider (law enforcement style) */
@@ -390,6 +591,18 @@
       .main{ grid-template-columns: 1fr; }
       .seal{ flex: 1 1 100%; }
       .title h1{ font-size: 34px; }
+      .logo-area{ padding: 16px 16px; }
+      header, .main, footer{ padding-left: 16px; padding-right: 16px; }
+    }
+
+    /* Print clean */
+    @media print{
+      body{ background:#fff; padding:0; }
+      body::before{ display:none; }
+      .page{ box-shadow:none; border: none; border-radius:0; }
+      .divider, .dot{ animation:none !important; }
+      .logo-slot::after, .hero::after, .seal::after{ animation:none !important; }
+      .btnrow, footer{ display:none; }
     }
   </style>
 </head>
@@ -403,6 +616,42 @@
       <path d="M50 24l6 10 12-2-3 11 9 8-11 5 1 12-10-6-10 6 1-12-11-5 9-8-3-11 12 2z" fill="rgba(0,0,0,.35)"/>
     </svg>
 
+    <!-- ===== TOP LOGO AREA (Upload/Insert your Department Logo) ===== -->
+    <section class="logo-area" aria-label="Sheriff Department Logo Bereich">
+      <div class="logo-slot">
+        <div class="logo-box" title="Hier kommt euer Sheriff Department Logo rein">
+          <!--
+            ✅ LOGO EINBINDEN:
+            1) Lege euer Logo ins Repo z.B. als: sheriff-logo.png
+            2) Ersetze die nächste Zeile mit:
+               <img src="sheriff-logo.png" alt="Sheriff Department Logo">
+            3) Und entferne das <div class="logo-hint">...</div>
+          -->
+          <!-- <img src="sheriff-logo.png" alt="Sheriff Department Logo"> -->
+          <div class="logo-hint">Logo hier einsetzen<br><span style="opacity:.85;">(z.B. sheriff-logo.png)</span></div>
+        </div>
+
+        <div class="logo-meta">
+          <div class="dept">Sheriff Department</div>
+          <div class="sub">Offizieller Bewerbungsbogen • Retro Roleplay</div>
+          <div class="mini-tags">
+            <span class="mini-tag">Deputy Application</span>
+            <span class="mini-tag">Code of Conduct</span>
+            <span class="mini-tag">Public Safety</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="status" aria-label="Status">
+        <span class="dot" aria-hidden="true"></span>
+        <div class="txt">
+          UI-Glow: <b>aktiv</b><br>
+          Status: <b>bereit</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HEADER (Title + Applicant) ===== -->
     <header>
       <div class="header-row">
         <section class="hero">
@@ -415,12 +664,12 @@
           </div>
 
           <div class="title">
-            <h1>Sheriff Department</h1>
-            <p>Bewerbung • Retro Roleplay • Dienst, Verantwortung & Teamarbeit</p>
+            <h1>Bewerbung</h1>
+            <p>Jeff Jeremain • Dienst, Verantwortung & Teamarbeit</p>
 
             <div class="pills">
               <span class="pill"><strong>Name:</strong> Jeff Jeremain</span>
-              <span class="pill"><strong>Visum:</strong> 14</span>
+              <span class="pill"><strong>Visum:</strong> 15</span>
               <span class="pill"><strong>Alter IC:</strong> 36</span>
               <span class="pill"><strong>Alter OOC:</strong> 19</span>
             </div>
@@ -430,7 +679,8 @@
         <aside class="seal">
           <div class="kicker">Integrity • Service • Respect</div>
           <div class="small">
-            Dezentes Sheriff-Design mit Wappen, Badge & Gold-Akzenten
+            Dezentes RP-UI Glow & Sheriff-Wappen-Design<br>
+            mit Badge-Wasserzeichen
           </div>
         </aside>
       </div>
@@ -438,24 +688,25 @@
       <div class="divider" aria-hidden="true"></div>
     </header>
 
+    <!-- ===== MAIN CONTENT ===== -->
     <section class="main">
       <article class="card letter">
         <h2>Schriftliche Bewerbung</h2>
         Sehr geehrtes Sheriff Department,
         <br><br>
-        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es, die öffentliche Sicherheit
-        aktiv zu unterstützen und das Department zuverlässig, respektvoll und professionell zu vertreten.
+        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es, die öffentliche Sicherheit aktiv zu
+        unterstützen und das Department zuverlässig, respektvoll und professionell zu vertreten.
         <br><br>
         Ich lege großen Wert auf Disziplin, Teamarbeit und einen sauberen Umgangston. Mir ist bewusst, dass der Dienst
-        nicht nur Präsenz bedeutet, sondern auch Verantwortung: ruhiges Handeln in stressigen Situationen,
-        klare Kommunikation und korrektes Auftreten gegenüber Bürgern stehen für mich an erster Stelle.
+        nicht nur Präsenz bedeutet, sondern auch Verantwortung: ruhiges Handeln in stressigen Situationen, klare
+        Kommunikation sowie korrektes Auftreten gegenüber Bürgern stehen für mich an erster Stelle.
         <br><br>
-        Durch meine Visumstufe 14 bringe ich eine solide Stadterfahrung mit. Ich kenne wichtige Orte und Routen,
-        kann Situationen schnell einschätzen und bleibe auch unter Druck konzentriert. Zusätzlich bin ich bereit,
-        mich an interne Abläufe, Hierarchien und Dienstvorschriften zu halten und mich stetig weiterzuentwickeln.
+        Durch meine Visumstufe 15 bringe ich eine solide Stadterfahrung mit. Ich kenne wichtige Orte und Routen, kann
+        Situationen schnell einschätzen und bleibe auch unter Druck konzentriert. Zusätzlich bin ich bereit, mich an
+        interne Abläufe, Hierarchien und Dienstvorschriften zu halten und mich stetig weiterzuentwickeln.
         <br><br>
-        Ich würde mich freuen, die Chance zu erhalten, mich in einem persönlichen Gespräch oder in einer Probephase
-        zu beweisen. Vielen Dank für Ihre Zeit und die Bearbeitung meiner Bewerbung.
+        Ich würde mich freuen, die Chance zu erhalten, mich in einem persönlichen Gespräch oder in einer Probephase zu
+        beweisen. Vielen Dank für Ihre Zeit und die Bearbeitung meiner Bewerbung.
         <div class="signature">
           Mit freundlichen Grüßen<br>
           Jeff Jeremain
@@ -465,7 +716,6 @@
       <aside class="card side">
         <h2>Steckbrief</h2>
 
-        <!-- small shield emblem -->
         <div style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
           <svg class="shield" viewBox="0 0 100 120" width="42" height="42" aria-hidden="true">
             <path d="M50 4c18 10 34 10 46 12v40c0 30-21 52-46 60C25 108 4 86 4 56V16C16 14 32 14 50 4z"/>
@@ -488,7 +738,7 @@
           </div>
           <div class="row">
             <div class="k">Visumstufe</div>
-            <div class="v">14</div>
+            <div class="v">15</div>
           </div>
           <div class="row">
             <div class="k">Alter (IC)</div>
@@ -519,7 +769,7 @@
 
     <footer>
       <div>Retro Roleplay – Sheriff Department Bewerbung</div>
-      <div>Jeff Jeremain • Visum 14</div>
+      <div>Jeff Jeremain • Visum 15</div>
     </footer>
   </main>
 </body>
