@@ -10,17 +10,18 @@
     :root{
       --bg0:#05070c;
       --bg1:#0b1220;
-      --panel: rgba(10, 16, 28, .72);
-      --panel2: rgba(15, 22, 38, .58);
+      --panel: rgba(10, 16, 28, .74);
       --border: rgba(255,255,255,.10);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
       --gold: #d8b45a;
-      --gold2:#b38a2e;
       --blue:#2aa7ff;
       --red:#ff3b3b;
+      --green:#39ff88;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
+      --scan: rgba(255,255,255,.07);
+      --grid: rgba(255,255,255,.05);
     }
 
     *{ box-sizing:border-box; }
@@ -29,116 +30,130 @@
       margin:0;
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1000px 600px at 20% 10%, rgba(42,167,255,.15), transparent 60%),
-                  radial-gradient(900px 600px at 80% 0%, rgba(255,59,59,.10), transparent 55%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      background:
+        radial-gradient(1000px 600px at 20% 10%, rgba(42,167,255,.14), transparent 60%),
+        radial-gradient(900px 600px at 80% 0%, rgba(255,59,59,.10), transparent 55%),
+        radial-gradient(900px 600px at 50% 120%, rgba(216,180,90,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
 
-    /* ===== Animated background: moving "dust" + subtle gradient drift ===== */
-    .bg{
-      position:fixed; inset:0;
-      pointer-events:none;
-      z-index:0;
-    }
+    /* Cinematic background */
+    .bg{ position:fixed; inset:0; pointer-events:none; z-index:0; }
     .bg::before{
       content:"";
-      position:absolute; inset:-80px;
+      position:absolute; inset:-90px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(216,180,90,.12), transparent 45%),
+        radial-gradient(circle at 20% 20%, rgba(216,180,90,.14), transparent 45%),
         radial-gradient(circle at 70% 30%, rgba(42,167,255,.10), transparent 40%),
-        radial-gradient(circle at 60% 80%, rgba(255,59,59,.06), transparent 45%),
+        radial-gradient(circle at 60% 80%, rgba(255,59,59,.07), transparent 45%),
         linear-gradient(120deg, rgba(255,255,255,.04), rgba(255,255,255,0));
-      filter: blur(8px);
-      animation: drift 18s ease-in-out infinite alternate;
+      filter: blur(10px);
+      animation: drift 16s ease-in-out infinite alternate;
       opacity:.9;
     }
     .bg::after{
       content:"";
       position:absolute; inset:0;
-      background-image:
-        radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
       background-size: 3px 3px;
       opacity: .08;
-      animation: dust 22s linear infinite;
+      animation: dust 24s linear infinite;
       transform: translate3d(0,0,0);
     }
     @keyframes drift{
-      0%{ transform: translate(-2%, -1%) scale(1.02) rotate(-.3deg); }
-      100%{ transform: translate(2%, 1%) scale(1.06) rotate(.3deg); }
+      0%{ transform: translate(-2.5%, -1.3%) scale(1.02) rotate(-.35deg); }
+      100%{ transform: translate(2.5%, 1.3%) scale(1.07) rotate(.35deg); }
     }
     @keyframes dust{
       0%{ transform: translateY(0); }
-      100%{ transform: translateY(80px); }
+      100%{ transform: translateY(90px); }
     }
 
-    /* ===== Siren light overlay ===== */
-    .siren{
-      position:fixed; inset:0;
-      pointer-events:none;
-      z-index:2;
-      mix-blend-mode: screen;
-      opacity:.35;
+    /* MDT overlay + scanning line */
+    .mdtOverlay{ position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.65; }
+    .mdtOverlay::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(transparent 95%, var(--grid) 95%),
+        linear-gradient(90deg, transparent 95%, var(--grid) 95%);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 20%, black 0 55%, transparent 75%);
+      opacity:.55;
     }
+    .mdtOverlay::after{
+      content:"";
+      position:absolute; left:0; right:0;
+      height: 180px;
+      top:-220px;
+      background: linear-gradient(to bottom, transparent, var(--scan), transparent);
+      filter: blur(1px);
+      animation: scan 5.2s linear infinite;
+      opacity:.75;
+    }
+    @keyframes scan{
+      0%{ transform: translateY(0); }
+      100%{ transform: translateY(calc(100vh + 440px)); }
+    }
+
+    /* Siren overlay */
+    .siren{ position:fixed; inset:0; pointer-events:none; z-index:2; mix-blend-mode: screen; opacity:.35; }
     .siren .beam{
       position:absolute; top:-15%; bottom:-15%;
       width:55vw;
-      filter: blur(22px);
+      filter: blur(24px);
       transform: skewX(-12deg);
-      opacity:.0;
+      opacity:0;
     }
     .siren .blue{
-      left:-10%;
-      background: radial-gradient(circle at 30% 40%, rgba(42,167,255,.85), transparent 60%);
-      animation: pulseBlue 2.2s ease-in-out infinite;
+      left:-12%;
+      background: radial-gradient(circle at 30% 40%, rgba(42,167,255,.9), transparent 60%);
+      animation: pulseBlue 2.0s ease-in-out infinite;
     }
     .siren .red{
-      right:-10%;
-      background: radial-gradient(circle at 70% 40%, rgba(255,59,59,.75), transparent 60%);
-      animation: pulseRed 2.2s ease-in-out infinite;
+      right:-12%;
+      background: radial-gradient(circle at 70% 40%, rgba(255,59,59,.8), transparent 60%);
+      animation: pulseRed 2.0s ease-in-out infinite;
     }
     @keyframes pulseBlue{
-      0%, 45%{ opacity:0; transform: translateX(-2%) skewX(-12deg) scale(1.0); }
-      55%{ opacity:.75; }
-      75%{ opacity:.25; transform: translateX(6%) skewX(-12deg) scale(1.06); }
-      100%{ opacity:0; transform: translateX(10%) skewX(-12deg) scale(1.0); }
+      0%, 46%{ opacity:0; transform: translateX(-2%) skewX(-12deg) scale(1.0); }
+      56%{ opacity:.85; }
+      72%{ opacity:.22; transform: translateX(7%) skewX(-12deg) scale(1.07); }
+      100%{ opacity:0; transform: translateX(12%) skewX(-12deg) scale(1.0); }
     }
     @keyframes pulseRed{
-      0%, 55%{ opacity:0; transform: translateX(2%) skewX(-12deg) scale(1.0); }
-      65%{ opacity:.65; }
-      85%{ opacity:.25; transform: translateX(-6%) skewX(-12deg) scale(1.06); }
-      100%{ opacity:0; transform: translateX(-10%) skewX(-12deg) scale(1.0); }
+      0%, 54%{ opacity:0; transform: translateX(2%) skewX(-12deg) scale(1.0); }
+      64%{ opacity:.78; }
+      84%{ opacity:.22; transform: translateX(-7%) skewX(-12deg) scale(1.07); }
+      100%{ opacity:0; transform: translateX(-12%) skewX(-12deg) scale(1.0); }
     }
 
-    /* ===== Layout ===== */
     .wrap{
       position:relative;
       z-index:3;
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 22px 18px 80px;
+      padding: 20px 18px 90px;
     }
 
     .topbar{
       position: sticky;
       top: 12px;
-      z-index: 5;
+      z-index: 6;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:14px;
       padding: 12px 14px;
       border: 1px solid var(--border);
-      background: rgba(8, 12, 22, .55);
-      backdrop-filter: blur(10px);
+      background: rgba(8, 12, 22, .58);
+      backdrop-filter: blur(12px);
       border-radius: 999px;
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      min-width: 0;
-    }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
     .logo{
       width: 40px; height: 40px;
       border-radius: 12px;
@@ -148,19 +163,11 @@
       box-shadow: 0 10px 24px rgba(0,0,0,.35);
       flex: 0 0 auto;
     }
-    .logo img{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .brand .t{
-      display:flex; flex-direction:column;
-      line-height:1.05;
-      min-width:0;
-    }
+    .logo img{ width:100%; height:100%; object-fit: contain; display:block; }
+    .brand .t{ display:flex; flex-direction:column; line-height:1.06; min-width:0; }
     .brand .t strong{
       font-size: .98rem;
-      letter-spacing: .8px;
+      letter-spacing: .9px;
       text-transform: uppercase;
       white-space:nowrap;
       overflow:hidden;
@@ -173,6 +180,8 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
+
+    .rightCluster{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
 
     .clock{
       display:flex; align-items:center; gap:10px;
@@ -195,10 +204,41 @@
       100%{ transform: scale(.85); opacity:.70; }
     }
 
+    .radio{
+      display:flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(57,255,136,.20);
+      background: rgba(57,255,136,.06);
+      max-width: 360px;
+    }
+    .eq{ display:flex; align-items:flex-end; gap:3px; height: 14px; width: 26px; }
+    .eq i{
+      display:block; width:4px; height: 6px;
+      border-radius: 4px;
+      background: rgba(57,255,136,.85);
+      opacity:.9;
+      animation: eq 1.1s ease-in-out infinite;
+    }
+    .eq i:nth-child(2){ animation-delay: .15s; }
+    .eq i:nth-child(3){ animation-delay: .3s; }
+    .eq i:nth-child(4){ animation-delay: .45s; }
+    @keyframes eq{
+      0%,100%{ height: 5px; opacity:.55; }
+      50%{ height: 14px; opacity:1; }
+    }
+    .radio span{
+      color: rgba(205,255,226,.92);
+      font-size: .86rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
     header.hero{
-      margin-top: 22px;
+      margin-top: 18px;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.25fr .75fr;
       gap: 18px;
       align-items: stretch;
     }
@@ -206,21 +246,38 @@
     .card{
       border: 1px solid var(--border);
       background: linear-gradient(180deg, var(--panel), rgba(10, 16, 28, .55));
-      border-radius: var(--radius);
+      border-radius: 18px;
       box-shadow: var(--shadow);
       overflow:hidden;
+      position:relative;
     }
-    .card .inner{ padding: 18px 18px 16px; }
+    .card::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(800px 240px at 50% 0%, rgba(216,180,90,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .inner{ padding: 18px 18px 16px; position:relative; }
 
-    .heroTitle{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
+    .fileStamp{
+      position:absolute;
+      top:14px; right:14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(216,180,90,.45);
+      background: rgba(216,180,90,.08);
+      transform: rotate(2deg);
+      box-shadow: 0 14px 28px rgba(0,0,0,.25);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 850;
+      color: rgba(255,240,210,.92);
+      font-size: .78rem;
     }
+
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      display:inline-flex; align-items:center; gap:10px;
       width: fit-content;
       padding: 8px 12px;
       border-radius: 999px;
@@ -231,95 +288,72 @@
       font-size: .9rem;
     }
     .badge .mini{
-      width: 26px; height: 18px;
+      width: 28px; height: 18px;
       border-radius: 6px;
-      background:
-        linear-gradient(90deg, rgba(42,167,255,.9), rgba(42,167,255,.2));
-      position:relative;
-      overflow:hidden;
+      background: linear-gradient(90deg, rgba(42,167,255,.95), rgba(42,167,255,.18));
+      position:relative; overflow:hidden;
     }
     .badge .mini::after{
       content:"";
       position:absolute; inset:-40% -60%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
       transform: rotate(20deg);
-      animation: sweep 2.8s linear infinite;
+      animation: sweep 2.6s linear infinite;
       opacity:.7;
     }
     @keyframes sweep{
-      0%{ transform: translateX(-40%) rotate(20deg); }
-      100%{ transform: translateX(40%) rotate(20deg); }
+      0%{ transform: translateX(-45%) rotate(20deg); }
+      100%{ transform: translateX(45%) rotate(20deg); }
     }
 
     h1{
-      margin:0;
-      font-size: clamp(1.6rem, 3.6vw, 2.6rem);
-      letter-spacing: .4px;
+      margin: 10px 0 0;
+      font-size: clamp(1.7rem, 3.8vw, 2.7rem);
+      letter-spacing: .35px;
     }
     .sub{
-      margin:0;
+      margin: 10px 0 0;
       color: var(--muted);
-      line-height: 1.45;
-      max-width: 62ch;
+      line-height: 1.55;
+      max-width: 78ch;
     }
 
     .heroSide{
       background:
-        radial-gradient(650px 280px at 50% 0%, rgba(216,180,90,.20), transparent 60%),
-        linear-gradient(180deg, rgba(18, 26, 44, .60), rgba(10, 16, 28, .35));
+        radial-gradient(650px 280px at 50% 0%, rgba(216,180,90,.22), transparent 60%),
+        linear-gradient(180deg, rgba(18, 26, 44, .62), rgba(10, 16, 28, .35));
       position:relative;
     }
-    .heroSide .inner{
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      justify-content:space-between;
-    }
-    .seal{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-    }
-    .seal .bigLogo{
-      width: 76px; height: 76px;
-      border-radius: 18px;
+
+    .seal{ display:flex; align-items:center; gap: 14px; }
+    .bigLogo{
+      width: 80px; height: 80px;
+      border-radius: 20px;
       border: 1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.03);
       overflow:hidden;
       box-shadow: 0 18px 40px rgba(0,0,0,.45);
       flex: 0 0 auto;
     }
-    .seal .bigLogo img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .seal .sealText{
-      display:flex; flex-direction:column;
-      gap:4px;
-      min-width:0;
-    }
-    .seal .sealText strong{
+    .bigLogo img{ width:100%; height:100%; object-fit: contain; display:block; }
+    .sealText{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+    .sealText strong{
       text-transform:uppercase;
       letter-spacing: 1.6px;
-      font-size: .95rem;
+      font-size: .96rem;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .seal .sealText span{
-      color: var(--muted);
-      font-size: .88rem;
-    }
+    .sealText span{ color: var(--muted); font-size: .88rem; }
 
     .divider{
       height:1px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
-      margin: 2px 0;
+      margin: 12px 0;
     }
 
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
+    .chips{ display:flex; flex-wrap:wrap; gap:10px; }
     .chip{
       padding: 8px 10px;
       border-radius: 999px;
@@ -327,9 +361,7 @@
       background: rgba(255,255,255,.05);
       color: rgba(255,255,255,.88);
       font-size: .9rem;
-      display:flex;
-      align-items:center;
-      gap:8px;
+      display:flex; align-items:center; gap:8px;
       white-space:nowrap;
     }
     .chip b{ color: rgba(255,255,255,.95); }
@@ -344,26 +376,20 @@
     .sectionTitle{
       margin:0 0 10px;
       font-size: 1.05rem;
-      letter-spacing: .6px;
+      letter-spacing: .7px;
       text-transform: uppercase;
       color: rgba(255,255,255,.88);
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display:flex; align-items:center; gap:10px;
     }
     .sectionTitle .bar{
       height: 10px;
-      width: 36px;
+      width: 38px;
       border-radius: 999px;
-      background: linear-gradient(90deg, rgba(216,180,90,.95), rgba(216,180,90,.15));
-      box-shadow: 0 0 24px rgba(216,180,90,.25);
+      background: linear-gradient(90deg, rgba(216,180,90,.95), rgba(216,180,90,.12));
+      box-shadow: 0 0 24px rgba(216,180,90,.22);
     }
 
-    .kv{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
+    .kv{ display:grid; gap: 10px; }
     .row{
       display:flex;
       justify-content:space-between;
@@ -372,13 +398,61 @@
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.08);
       background: rgba(255,255,255,.04);
+      position:relative;
+      overflow:hidden;
     }
     .row span{ color: var(--muted); }
-    .row strong{ font-weight: 650; }
+    .row strong{ font-weight: 720; }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-variant-numeric: tabular-nums;
+    }
 
-    .note{
+    .row::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, transparent, rgba(216,180,90,.10), transparent);
+      transform: translateX(-120%);
+      animation: rowShine 6.5s ease-in-out infinite;
+      opacity:.8;
+      pointer-events:none;
+    }
+    .row:nth-child(2)::after{ animation-delay: .7s; }
+    .row:nth-child(3)::after{ animation-delay: 1.4s; }
+    .row:nth-child(4)::after{ animation-delay: 2.1s; }
+    @keyframes rowShine{
+      0%,55%{ transform: translateX(-120%); opacity:0; }
+      65%{ opacity:.8; }
+      100%{ transform: translateX(120%); opacity:0; }
+    }
+
+    .prose{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.03);
+      padding: 12px;
+      line-height: 1.62;
+      color: rgba(255,255,255,.78);
+    }
+    .prose p{ margin: 0 0 10px; }
+    .prose p:last-child{ margin:0; }
+    .prose b{ color: rgba(255,255,255,.90); }
+
+    .bullets{
       margin: 10px 0 0;
-      color: rgba(255,255,255,.72);
+      padding-left: 16px;
+      color: rgba(255,255,255,.78);
+    }
+    .bullets li{ margin: 6px 0; }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(42,167,255,.18);
+      background: rgba(42,167,255,.06);
+      padding: 12px;
+      color: rgba(230,247,255,.86);
       line-height: 1.55;
     }
 
@@ -386,13 +460,22 @@
       margin-top: 18px;
       grid-column: 1 / -1;
     }
-
     .ctaBox{
       border: 1px solid rgba(42,167,255,.20);
       background: linear-gradient(180deg, rgba(42,167,255,.10), rgba(10,16,28,.55));
-      border-radius: var(--radius);
+      border-radius: 18px;
       box-shadow: var(--shadow);
       overflow:hidden;
+      position:relative;
+    }
+    .ctaBox::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 240px at 10% 0%, rgba(42,167,255,.18), transparent 60%),
+        radial-gradient(900px 240px at 90% 0%, rgba(255,59,59,.10), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
     }
     .ctaBox .inner{
       padding: 16px 18px;
@@ -401,27 +484,23 @@
       justify-content:space-between;
       gap: 14px;
       flex-wrap:wrap;
+      position:relative;
     }
-    .ctaBox .inner .text{
-      max-width: 70ch;
-    }
-    .ctaBox .inner h2{
+    .ctaBox h2{
       margin:0 0 8px;
       font-size: 1.2rem;
       letter-spacing:.3px;
     }
-    .ctaBox .inner p{
+    .ctaBox p{
       margin:0;
       color: var(--muted);
       line-height:1.55;
+      max-width: 90ch;
     }
 
     .actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
+      display:flex; gap: 10px; flex-wrap:wrap;
+      align-items:center; justify-content:flex-end;
       margin-left:auto;
     }
     .btn{
@@ -432,25 +511,28 @@
       padding: 10px 12px;
       border-radius: 14px;
       cursor:pointer;
-      font-weight: 650;
+      font-weight: 800;
       letter-spacing: .2px;
       box-shadow: 0 10px 24px rgba(0,0,0,.28);
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, filter .12s ease;
+      display:inline-flex; align-items:center; gap:10px;
       user-select:none;
     }
     .btn:hover{
       transform: translateY(-1px);
       background: rgba(255,255,255,.09);
       border-color: rgba(216,180,90,.25);
+      filter: brightness(1.03);
     }
     .btn.primary{
       border-color: rgba(216,180,90,.40);
       background: rgba(216,180,90,.10);
     }
-    .btn small{ opacity:.85; font-weight:600; }
+    .btn.tog{
+      border-color: rgba(57,255,136,.22);
+      background: rgba(57,255,136,.07);
+    }
+    .btn small{ opacity:.85; font-weight:800; }
 
     footer{
       margin-top: 18px;
@@ -459,24 +541,100 @@
       font-size: .92rem;
     }
 
-    /* ===== Responsive ===== */
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 20;
+      padding: 18px;
+    }
+    .modal[open]{ display:flex; }
+    .backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+    }
+    .sheet{
+      position:relative;
+      width:min(920px, 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(12,18,32,.85), rgba(10,16,28,.72));
+      box-shadow: 0 26px 90px rgba(0,0,0,.65);
+      overflow:hidden;
+      transform: translateY(8px) scale(.98);
+      opacity:0;
+      animation: pop .18s ease forwards;
+    }
+    @keyframes pop{ to{ transform: translateY(0) scale(1); opacity:1; } }
+    .sheet header{
+      padding: 14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .sheet header strong{
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-size: .92rem;
+      color: rgba(255,255,255,.9);
+    }
+    .close{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-weight: 900;
+    }
+    .sheet .content{
+      padding: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .paper{
+      border-radius: 18px;
+      border: 1px solid rgba(216,180,90,.22);
+      background: radial-gradient(600px 220px at 50% 0%, rgba(216,180,90,.16), transparent 60%),
+                  rgba(255,255,255,.03);
+      padding: 14px;
+    }
+    .paper h3{ margin:0 0 8px; letter-spacing:.5px; }
+    .paper p{ margin:0; color: rgba(255,255,255,.72); line-height:1.55; }
+    .sig{
+      margin-top: 10px;
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255,255,255,.14);
+      color: rgba(255,255,255,.68);
+      font-size: .92rem;
+    }
+
     @media (max-width: 900px){
       header.hero{ grid-template-columns: 1fr; }
       main{ grid-template-columns: 1fr; }
-      .clock{ display:none; }
+      .radio{ display:none; }
     }
-
-    /* ===== Reduced motion ===== */
+    @media (max-width: 720px){
+      .clock{ display:none; }
+      .sheet .content{ grid-template-columns: 1fr; }
+    }
     @media (prefers-reduced-motion: reduce){
-      .bg::before, .bg::after, .siren .beam, .badge .mini::after, .clock .dot{ animation:none !important; }
+      .bg::before, .bg::after, .mdtOverlay::after, .siren .beam,
+      .clock .dot, .eq i, .row::after { animation:none !important; }
     }
   </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
+  <div class="mdtOverlay" aria-hidden="true"></div>
 
-  <div class="siren" aria-hidden="true">
+  <div class="siren" aria-hidden="true" id="siren">
     <div class="beam blue"></div>
     <div class="beam red"></div>
   </div>
@@ -484,38 +642,50 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <div class="logo" title="LSSD / Sheriff Logo">
-          <!-- WICHTIG: Lege Sheriff.png in den gleichen Ordner wie index.html -->
+        <div class="logo" title="Logo (Sheriff.png)">
           <img src="Sheriff.png" alt="Sheriff Logo" />
         </div>
         <div class="t">
-          <strong>BCSD • Schriftliche Bewerbung</strong>
-          <span>Jeff Jeremain • Blaine County Sheriff Department</span>
+          <strong>BCSD • Recruitment File</strong>
+          <span>Application / Jeff Jeremain • MDT View</span>
         </div>
       </div>
 
-      <div class="clock" title="Realtime — Europe/Berlin">
-        <div class="dot"></div>
-        <div>
-          <div style="font-size:.86rem; color: rgba(255,255,255,.72); line-height:1;">Dienstzeit (Berlin)</div>
-          <div id="clockText" style="font-weight:750; letter-spacing:.4px;">--:--:--</div>
+      <div class="rightCluster">
+        <div class="radio" title="Dispatch Feed (dekorativ)">
+          <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <span id="radioText">DISPATCH: Unit 1A-12, status check…</span>
+        </div>
+
+        <div class="clock" title="Realtime — Europe/Berlin">
+          <div class="dot"></div>
+          <div>
+            <div style="font-size:.86rem; color: rgba(255,255,255,.72); line-height:1;">Dienstzeit (Berlin)</div>
+            <div id="clockText" style="font-weight:900; letter-spacing:.4px;">--:--:--</div>
+          </div>
         </div>
       </div>
     </div>
 
     <header class="hero">
       <section class="card">
-        <div class="inner heroTitle">
+        <div class="fileStamp">Cleared • Intake</div>
+        <div class="inner">
           <div class="badge">
             <span class="mini" aria-hidden="true"></span>
-            <span><b>Recruitment File</b> • BCSD Application</span>
+            <span><b>BCSD Intake</b> • Schriftliche Bewerbung</span>
           </div>
-          <h1>Jeff Jeremain — Bewerbung beim BCSD</h1>
+          <h1>Jeff Jeremain</h1>
           <p class="sub">
-            Sehr geehrte Damen und Herren des <b>Blaine Country Sheriff Department</b>,<br />
-            hiermit reiche ich meine schriftliche Bewerbung ein. Unten finden Sie meine IC-/OOC-Daten,
-            Qualifikationen sowie meinen aktuellen Status.
+            Sehr geehrte Damen und Herren des <b>Blaine County Sheriff Department</b>,<br />
+            hiermit bewerbe ich mich um eine Position beim BCSD. Mir ist ein professionelles Auftreten,
+            sauberes Roleplay und eine klare, respektvolle Kommunikation wichtig. Unten finden Sie meine
+            Daten und eine ausführlichere Darstellung meiner Motivation, Werte und Ziele.
           </p>
+
+          <div class="callout">
+            <b>Kurzprofil:</b> Visum Level <b>15</b> • alle Führerscheine vorhanden • seit <b>mehr als 14 Tagen straffrei</b> • Kontakt: <span class="mono">6029103965</span>
+          </div>
         </div>
       </section>
 
@@ -527,28 +697,31 @@
             </div>
             <div class="sealText">
               <strong>Serve & Protect</strong>
-              <span>Los Santos County / Blaine County Style</span>
+              <span>Blaine County • Sheriff Operations</span>
             </div>
           </div>
 
           <div class="divider"></div>
 
           <div class="chips">
-            <div class="chip"><b>Visum:</b> Level 15</div>
-            <div class="chip"><b>Führerscheine:</b> Alle</div>
-            <div class="chip"><b>Straffrei:</b> &gt; 14 Tage</div>
-            <div class="chip"><b>Kontakt:</b> 6029103965</div>
+            <div class="chip">🪪 <b>Visum:</b> Level 15</div>
+            <div class="chip">🚗 <b>Führerscheine:</b> Alle</div>
+            <div class="chip">✅ <b>Straffrei:</b> &gt; 14 Tage</div>
+            <div class="chip">📞 <b>Kontakt:</b> 6029103965</div>
           </div>
 
-          <p class="note">
-            Hinweis: Design im GTA-Sheriff-Look mit animierten Effekten (Blaulicht/Background).
-            Für weniger Animation bitte „Reduzierte Bewegung“ im System aktivieren.
-          </p>
+          <div class="divider"></div>
+
+          <div class="prose">
+            <p><b>Leitbild:</b> Ruhig bleiben, sauber handeln, Team unterstützen.</p>
+            <p><b>Arbeitsstil:</b> Struktur + Respekt + Deeskalation vor Eskalation.</p>
+          </div>
         </div>
       </aside>
     </header>
 
     <main>
+      <!-- Persönliche Daten -->
       <section class="card">
         <div class="inner">
           <h3 class="sectionTitle"><span class="bar"></span>Persönliche Daten</h3>
@@ -556,14 +729,20 @@
             <div class="row"><span>Name</span><strong>Jeff Jeremain</strong></div>
             <div class="row"><span>Alter (IC)</span><strong>36 Jahre</strong></div>
             <div class="row"><span>Alter (OOC)</span><strong>19 Jahre</strong></div>
-            <div class="row"><span>Telefonnummer</span><strong>6029103965</strong></div>
+            <div class="row"><span>Telefonnummer</span><strong class="mono">6029103965</strong></div>
           </div>
-          <p class="note">
-            Ich stehe für Rückfragen oder ein persönliches Gespräch jederzeit zur Verfügung.
-          </p>
+
+          <div class="prose">
+            <p>
+              Mir ist wichtig, dass eine Bewerbung nicht nur aus Zahlen besteht. Ich möchte zeigen,
+              wie ich im RP auftrete: zuverlässig, ruhig, mit klarer Kommunikation und dem Fokus auf
+              gutes, faires und sauberes Roleplay.
+            </p>
+          </div>
         </div>
       </section>
 
+      <!-- Qualifikationen -->
       <section class="card">
         <div class="inner">
           <h3 class="sectionTitle"><span class="bar"></span>Qualifikationen & Status</h3>
@@ -572,31 +751,163 @@
             <div class="row"><span>Führerscheine</span><strong>Alle vorhanden</strong></div>
             <div class="row"><span>Strafregister</span><strong>Mehr als 14 Tage straffrei</strong></div>
           </div>
-          <p class="note">
-            Motivation: Professionalität, Teamarbeit, saubere Kommunikation und ruhiges Handeln in Stresssituationen.
-          </p>
+
+          <div class="prose">
+            <p>
+              Ich halte mich an Regeln, bleibe sachlich und versuche Situationen nicht „zu pushen“,
+              sondern realistisch auszuspielen. Für mich zählt die Story und ein faires Miteinander.
+            </p>
+          </div>
         </div>
       </section>
 
+      <!-- Motivation -->
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>Warum das BCSD?</h3>
+          <div class="prose">
+            <p>
+              Ich bewerbe mich beim <b>BCSD</b>, weil mich die Arbeit in Blaine County besonders anspricht:
+              lange Strecken, ländliche Gebiete, Einsätze rund um Sandy Shores / Harmony / Grapeseed,
+              und eine eher „bodenständige“ Sheriff-Arbeit. Gerade dort ist gutes Teamplay wichtig,
+              weil man oft weniger Support „um die Ecke“ hat und Entscheidungen ruhig und sauber treffen muss.
+            </p>
+            <p>
+              Außerdem mag ich den Sheriff-Stil: Präsenz zeigen, Menschen ansprechen, deeskalieren,
+              klare Linien ziehen – und wenn nötig konsequent handeln. Ich möchte Teil einer Einheit sein,
+              die professionell wirkt und Roleplay fördert.
+            </p>
+          </div>
+
+          <ul class="bullets">
+            <li><b>Team & Struktur:</b> Ich arbeite gerne nach klaren Abläufen (Funk, MDT, Reports).</li>
+            <li><b>Deeskalation:</b> Ich versuche Konflikte ruhig zu lösen, bevor sie eskalieren.</li>
+            <li><b>RP-Fokus:</b> Story & sauberes Ausspielen ist mir wichtiger als „Gewinnen“.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Stärken/Schwächen -->
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>Stärken & Schwächen</h3>
+
+          <div class="prose">
+            <p>
+              <b>Stärken:</b> Ich bleibe in Stresssituationen ruhig, kommuniziere klar und höre zu.
+              Ich nehme Feedback ernst und kann mich gut in ein Team einfügen. Ich bin zuverlässig
+              und halte mich an Vorgaben/Chain of Command.
+            </p>
+            <p>
+              <b>Schwächen:</b> Manchmal bin ich zu detailorientiert und will Dinge „richtig“ machen,
+              wodurch ich mir anfangs zu viel Zeit nehme. Daran arbeite ich, indem ich Prioritäten setze:
+              Sicherheit zuerst, dann Struktur/Details im Nachgang (z. B. Report).
+            </p>
+          </div>
+
+          <div class="callout">
+            <b>Wie ich an Schwächen arbeite:</b> kurze Checkliste im Kopf (Safety → Comms → Decision → Report),
+            damit ich in Einsätzen schnell bleibe und Details später sauber dokumentiere.
+          </div>
+        </div>
+      </section>
+
+      <!-- Verhalten / Stress -->
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>Verhalten im Einsatz</h3>
+
+          <div class="prose">
+            <p>
+              In kritischen Situationen konzentriere ich mich auf <b>Funkdisziplin</b> und <b>Übersicht</b>.
+              Ich spreche kurz, klar und gebe relevante Infos weiter. Wenn eine Situation unübersichtlich ist,
+              priorisiere ich: Eigenschutz, Zivilisten schützen, Team positionieren, dann weitere Schritte.
+            </p>
+            <p>
+              Bei Traffic Stops und Kontrollen achte ich auf höflichen Umgang, klare Ansagen und
+              ein ruhiges Auftreten. Deeskalation ist für mich Standard – Eskalation nur, wenn es nötig wird.
+            </p>
+          </div>
+
+          <ul class="bullets">
+            <li><b>Kommunikation:</b> kurz & klar (10-4 / Position / Lage / Bedarf).</li>
+            <li><b>Entscheidungen:</b> sicher, nachvollziehbar, im Sinne der Situation.</li>
+            <li><b>Dokumentation:</b> nach dem Einsatz sauberer Report (kurz, aber vollständig).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Ziele -->
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>Ziele im BCSD</h3>
+
+          <div class="prose">
+            <p>
+              Mein Ziel ist es, mich im BCSD Schritt für Schritt hochzuarbeiten – erst solide Grundlagen
+              (Patrol, Funk, Ablauf, Verhalten), dann Spezialisierung. Ich möchte langfristig Verantwortung übernehmen,
+              z. B. bei der Ausbildung neuer Deputies oder bei strukturierten Einsätzen in Blaine County.
+            </p>
+            <p>
+              Ich will ein zuverlässiger Bestandteil des Teams sein: pünktlich, respektvoll, ruhig – und jemand,
+              auf den man sich im Einsatz verlassen kann.
+            </p>
+          </div>
+
+          <div class="callout">
+            <b>Langfristig:</b> Ausbildung/Field Training unterstützen • Quality-RP fördern • Team-Lead in Blaine Einsätzen.
+          </div>
+        </div>
+      </section>
+
+      <!-- OOC Haltung -->
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>OOC: Kommunikation & RP-Haltung</h3>
+
+          <div class="prose">
+            <p>
+              OOC bin ich respektvoll und lösungsorientiert. Wenn es Missverständnisse gibt, kläre ich das ruhig,
+              ohne Stress zu machen. Mir ist wichtig, dass alle Beteiligten Spaß haben und man Konflikte sauber löst.
+            </p>
+            <p>
+              Ich akzeptiere Anweisungen von Vorgesetzten, nehme Kritik an und arbeite aktiv daran, besser zu werden.
+            </p>
+          </div>
+
+          <ul class="bullets">
+            <li><b>Feedback:</b> nehme ich an, setze es um.</li>
+            <li><b>Regeln:</b> halte ich ein, ohne Diskussion im Einsatz.</li>
+            <li><b>Fairness:</b> RP vor Ego, Team vor Solo.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CTA -->
       <section class="cta">
         <div class="ctaBox">
           <div class="inner">
-            <div class="text">
+            <div>
               <h2>Abschluss</h2>
               <p>
-                Ich bedanke mich für die Prüfung meiner Bewerbung und freue mich darauf,
-                mich im Dienst des BCSD zu beweisen.
+                Vielen Dank für die Prüfung meiner Bewerbung. Ich freue mich darauf, mich beim BCSD zu beweisen und
+                professionelles, strukturiertes Roleplay mitzugestalten. Für Rückfragen oder ein Gespräch bin ich jederzeit erreichbar:
+                <span class="mono">6029103965</span> — <span class="mono">Jeff Jeremain</span>
               </p>
             </div>
+
             <div class="actions">
               <button class="btn primary" onclick="window.print()" title="Als PDF speichern (Drucken)">
-                🖨️ <span>Drucken</span> <small>/ PDF</small>
+                🖨️ Drucken <small>/ PDF</small>
               </button>
               <button class="btn" id="copyBtn" title="Telefonnummer kopieren">
-                📋 <span>Nummer kopieren</span>
+                📋 Nummer kopieren
               </button>
-              <button class="btn" id="toggleSirenBtn" title="Blaulicht an/aus">
-                🚨 <span>Blaulicht</span> <small id="sirenState">AN</small>
+              <button class="btn tog" id="toggleSirenBtn" title="Blaulicht an/aus">
+                🚨 Blaulicht <small id="sirenState">AN</small>
+              </button>
+              <button class="btn" id="openFileBtn" title="Kurzakten-Ansicht öffnen">
+                🗂️ Akte öffnen
               </button>
             </div>
           </div>
@@ -609,12 +920,56 @@
     </footer>
   </div>
 
+  <!-- Modal: “Akte” -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header>
+        <strong id="modalTitle">BCSD • Applicant File</strong>
+        <button class="close" id="closeBtn">Schließen ✕</button>
+      </header>
+      <div class="content">
+        <div class="paper">
+          <h3>Applicant Snapshot</h3>
+          <p>
+            <b>Name:</b> Jeff Jeremain<br />
+            <b>IC Alter:</b> 36 • <b>OOC Alter:</b> 19<br />
+            <b>Visum:</b> Level 15<br />
+            <b>Lizenzen:</b> Alle Führerscheine<br />
+            <b>Status:</b> Mehr als 14 Tage straffrei
+          </p>
+          <div class="sig">
+            <span class="mono" id="modalTime">--:--:--</span>
+            <span>Signature: <span class="mono">J.J.</span></span>
+          </div>
+        </div>
+
+        <div class="paper">
+          <h3>Kontakt</h3>
+          <p class="mono" style="font-size:1.05rem;">6029103965</p>
+          <p style="margin-top:10px;">
+            Hinweise: Bitte via Ingame/Telefon oder Dienstweg melden. Ich bin bereit für ein Gespräch/Interview.
+          </p>
+
+          <div class="divider"></div>
+
+          <h3>Statement</h3>
+          <p>
+            „Ich möchte Teil einer Einheit sein, die ruhig bleibt, sauber arbeitet und Roleplay fördert –
+            gerade in Blaine County, wo Übersicht und Teamwork entscheidend sind.“
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // ===== Berlin clock =====
+    // Berlin time
     const clockEl = document.getElementById("clockText");
-    function tickBerlin(){
-      const now = new Date();
-      const fmt = new Intl.DateTimeFormat("de-DE", {
+    const modalTimeEl = document.getElementById("modalTime");
+
+    function formatBerlin(d){
+      return new Intl.DateTimeFormat("de-DE", {
         timeZone: "Europe/Berlin",
         weekday: "short",
         year: "numeric",
@@ -623,8 +978,12 @@
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit"
-      });
-      clockEl.textContent = fmt.format(now);
+      }).format(d);
+    }
+    function tickBerlin(){
+      const now = new Date();
+      clockEl.textContent = formatBerlin(now);
+      if (modalTimeEl) modalTimeEl.textContent = formatBerlin(now);
     }
     tickBerlin();
     setInterval(tickBerlin, 1000);
@@ -634,26 +993,66 @@
 
     // Copy phone
     const phone = "6029103965";
-    document.getElementById("copyBtn").addEventListener("click", async () => {
+    const copyBtn = document.getElementById("copyBtn");
+    copyBtn.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(phone);
-        const btn = document.getElementById("copyBtn");
-        const old = btn.innerHTML;
-        btn.innerHTML = "✅ <span>Kopiert</span>";
-        setTimeout(()=> btn.innerHTML = old, 1200);
+        const old = copyBtn.innerHTML;
+        copyBtn.innerHTML = "✅ Kopiert";
+        setTimeout(()=> copyBtn.innerHTML = old, 1200);
       } catch (e) {
         alert("Kopieren nicht möglich. Nummer: " + phone);
       }
     });
 
-    // Toggle siren overlay
-    const siren = document.querySelector(".siren");
+    // Siren toggle
+    const siren = document.getElementById("siren");
     const state = document.getElementById("sirenState");
     let sirenOn = true;
     document.getElementById("toggleSirenBtn").addEventListener("click", () => {
       sirenOn = !sirenOn;
       siren.style.display = sirenOn ? "block" : "none";
       state.textContent = sirenOn ? "AN" : "AUS";
+    });
+
+    // Dispatch feed lines
+    const radioText = document.getElementById("radioText");
+    const lines = [
+      "DISPATCH: Unit 1A-12, status check…",
+      "DISPATCH: 10-8 — Patrol active, Sandy Shores.",
+      "DISPATCH: MDT sync… Applicant file received.",
+      "DISPATCH: 10-4 — Records clear (14+ days).",
+      "DISPATCH: Code 2 — proceed to intake review."
+    ];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % lines.length;
+      radioText.textContent = lines[i];
+    }, 2600);
+
+    // Modal open/close
+    const modal = document.getElementById("modal");
+    const openFileBtn = document.getElementById("openFileBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const backdrop = document.getElementById("backdrop");
+
+    function openModal(){
+      modal.setAttribute("open", "");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      tickBerlin();
+    }
+    function closeModal(){
+      modal.removeAttribute("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    openFileBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.hasAttribute("open")) closeModal();
     });
   </script>
 </body>
