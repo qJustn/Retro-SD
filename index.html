@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sheriff Department Recruitment | Jeff Jeremain</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0b1a2b;
+  --dark:#08111c;
+  --gold:#c8a95b;
+  --light:#f4f6f9;
+  --card:#0f2236;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Montserrat,sans-serif;
+  background:var(--dark);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* 🇺🇸 Animated American Flag Background */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #b22234 0px,
+      #b22234 20px,
+      #fff 20px,
+      #fff 40px
+    );
+  opacity:0.07;
+  animation:wave 12s ease-in-out infinite alternate;
+  z-index:-2;
+}
+
+@keyframes wave{
+  0%{transform:translateX(-2%)}
+  100%{transform:translateX(2%)}
+}
+
+/* Navy overlay */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at 20% 20%, rgba(0,40,80,.6), transparent 60%);
+  z-index:-1;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.logo{
+  width:160px;
+  margin-bottom:20px;
+  filter:drop-shadow(0 0 25px rgba(200,169,91,.4));
+}
+
+h1{
+  font-family:Oswald,sans-serif;
+  font-size:40px;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+
+.subtitle{
+  margin-top:10px;
+  color:#ccc;
+  font-size:15px;
+}
+
+/* Layout */
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:30px;
+}
+
+/* Cards */
+.card{
+  background:var(--card);
+  padding:25px;
+  border-radius:16px;
+  border:1px solid rgba(200,169,91,.3);
+  box-shadow:0 0 30px rgba(0,0,0,.6);
+}
+
+.card h2{
+  font-family:Oswald,sans-serif;
+  margin-bottom:15px;
+  color:var(--gold);
+}
+
+/* Recruitment Text */
+.text{
+  line-height:1.8;
+  font-size:15.5px;
+}
+
+/* Form */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+input, textarea, select{
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  background:#081827;
+  color:white;
+  font-size:14px;
+}
+
+input:focus, textarea:focus{
+  outline:2px solid var(--gold);
+}
+
+button{
+  padding:12px;
+  border:none;
+  background:var(--gold);
+  color:black;
+  font-weight:bold;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+/* Info Box */
+.info-box div{
+  margin-bottom:15px;
+}
+
+.info-box span{
+  font-size:13px;
+  color:#aaa;
+}
+
+.footer{
+  text-align:center;
+  margin-top:40px;
+  font-size:13px;
+  color:#777;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <img src="Sheriff.png" class="logo" alt="Sheriff Logo">
+    <h1>SHERIFF DEPARTMENT</h1>
+    <div class="subtitle">Official Recruitment Application Portal</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Bewerbung Text -->
+    <div class="card">
+      <h2>Personal Statement</h2>
+      <div class="text">
+        Sehr geehrtes Sheriff Department,<br><br>
+        hiermit bewerbe ich mich offiziell als Deputy in Ihrem Department.
+        Mein Ziel ist es, aktiv zur Sicherheit der Stadt beizutragen und
+        Verantwortung zu übernehmen.
+        <br><br>
+        Durch meine Visumstufe 14 bringe ich umfangreiche Stadterfahrung mit.
+        Disziplin, Teamarbeit und professionelles Auftreten stehen für mich an erster Stelle.
+        <br><br>
+        Ich bin bereit, mich den Anforderungen des Dienstes zu stellen und
+        mich stetig weiterzuentwickeln.
+        <br><br>
+        Mit freundlichen Grüßen<br>
+        <strong>Jeff Jeremain</strong>
+      </div>
+    </div>
+
+    <!-- Recruitment Form -->
+    <div class="card">
+      <h2>Recruitment Form</h2>
+
+      <form onsubmit="event.preventDefault(); alert('Application Submitted Successfully');">
+
+        <input type="text" value="Jeff Jeremain" required>
+        <input type="number" value="36" required>
+        <input type="number" value="19" required>
+        <input type="text" value="14" required>
+
+        <select required>
+          <option value="">Position auswählen</option>
+          <option selected>Deputy</option>
+          <option>Cadet</option>
+          <option>Reserve Officer</option>
+        </select>
+
+        <textarea rows="4" placeholder="Warum möchten Sie dem Department beitreten?" required></textarea>
+
+        <button type="submit">Submit Application</button>
+      </form>
+
+      <div style="margin-top:15px;">
+        <button onclick="window.print()">🖨️ Export as PDF</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Los Santos County Sheriff Department – Recruitment Division
+  </div>
+
+</div>
+
+</body>
+</html>
