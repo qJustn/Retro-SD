@@ -16,6 +16,7 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:Inter,sans-serif;
   background:linear-gradient(135deg,#070b12,#0c111a);
@@ -25,6 +26,7 @@ body{
   padding:40px 15px;
 }
 
+/* MAIN CONTAINER */
 .container{
   width:100%;
   max-width:950px;
@@ -36,13 +38,13 @@ body{
   position:relative;
 }
 
-/* WATERMARK */
+/* WATERMARK LOGO */
 .watermark{
   position:absolute;
   right:-120px;
   bottom:-120px;
-  width:450px;
-  opacity:0.07;
+  width:420px;
+  opacity:0.06;
   pointer-events:none;
 }
 
@@ -51,17 +53,17 @@ body{
   text-align:center;
   padding:40px 20px 30px;
   border-bottom:1px solid var(--line);
-  position:relative;
 }
 
 .logo{
-  width:180px;
+  width:190px;
   animation:glow 4s ease-in-out infinite;
 }
 
+/* Dezenter RP Glow */
 @keyframes glow{
   0%,100%{filter:drop-shadow(0 0 10px rgba(215,180,106,.2))}
-  50%{filter:drop-shadow(0 0 25px rgba(215,180,106,.45))}
+  50%{filter:drop-shadow(0 0 28px rgba(215,180,106,.5))}
 }
 
 h1{
@@ -78,7 +80,7 @@ h1{
   font-size:15px;
 }
 
-/* MAIN */
+/* MAIN GRID */
 .main{
   display:grid;
   grid-template-columns:1.3fr .8fr;
@@ -130,6 +132,7 @@ h1{
   font-size:16px;
 }
 
+/* FOOTER */
 .footer{
   text-align:center;
   padding:15px;
@@ -149,11 +152,12 @@ h1{
 
 <div class="container">
 
-  <!-- WATERMARK -->
-  <img class="watermark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAADyCAIAAAA0mqB0AAAQAElEQVR4Aex9BYAdxf3/zKw8f+ee3MXd3YUQ3KVUaam7/qn/CjXq..." />
+  <!-- Wasserzeichen -->
+  <img class="watermark" src="Sheriff.png" alt="Sheriff Watermark">
 
   <div class="header">
-    <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAADyCAIAAAA0mqB0AAAQAElEQVR4Aex9BYAdxf3/zKw8f+ee3MXd3YUQ3KVUaam7/qn/CjXq..." alt="Sheriff Logo">
+    <!-- Hauptlogo -->
+    <img class="logo" src="Sheriff.png" alt="Sheriff Department Logo">
     <h1>SHERIFF DEPARTMENT</h1>
     <div class="subtitle">Bewerbung als Deputy – Retro Roleplay</div>
   </div>
@@ -164,15 +168,16 @@ h1{
       <h2>Bewerbungsschreiben</h2>
       <div class="letter">
         Sehr geehrtes Sheriff Department,<br><br>
-        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es, aktiv zur Sicherheit
-        der Stadt beizutragen und das Department professionell, respektvoll und zuverlässig zu vertreten.
+        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es,
+        aktiv zur Sicherheit der Stadt beizutragen und das Department professionell,
+        respektvoll und zuverlässig zu vertreten.
         <br><br>
-        Disziplin, Teamarbeit und ein ruhiger Umgang in stressigen Situationen gehören für mich
-        selbstverständlich dazu. Durch meine Visumstufe 14 bringe ich bereits umfassende
-        Stadterfahrung mit und kenne wichtige Orte sowie Abläufe.
+        Disziplin, Teamarbeit und ein ruhiger Umgang in stressigen Situationen
+        gehören für mich selbstverständlich dazu. Durch meine Visumstufe 14
+        bringe ich bereits umfassende Stadterfahrung mit.
         <br><br>
-        Ich bin bereit, mich an Hierarchien zu halten, Verantwortung zu übernehmen und
-        mich kontinuierlich weiterzuentwickeln.
+        Ich bin bereit, Verantwortung zu übernehmen, mich an Hierarchien zu halten
+        und mich kontinuierlich weiterzuentwickeln.
         <br><br>
         Über eine Einladung zu einem persönlichen Gespräch würde ich mich sehr freuen.
         <div class="signature">
