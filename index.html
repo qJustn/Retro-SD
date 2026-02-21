@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BCSD Bewerbung — Jeff Jeremain</title>
+  <meta name="description" content="Schriftliche Bewerbung für das Blaine County Sheriff Department (BCSD) — Jeff Jeremain." />
+
+  <style>
+    :root{
+      --bg0:#05070c;
+      --bg1:#0b1220;
+      --panel: rgba(10, 16, 28, .72);
+      --panel2: rgba(15, 22, 38, .58);
+      --border: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --gold: #d8b45a;
+      --gold2:#b38a2e;
+      --blue:#2aa7ff;
+      --red:#ff3b3b;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1000px 600px at 20% 10%, rgba(42,167,255,.15), transparent 60%),
+                  radial-gradient(900px 600px at 80% 0%, rgba(255,59,59,.10), transparent 55%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* ===== Animated background: moving "dust" + subtle gradient drift ===== */
+    .bg{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+    .bg::before{
+      content:"";
+      position:absolute; inset:-80px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(216,180,90,.12), transparent 45%),
+        radial-gradient(circle at 70% 30%, rgba(42,167,255,.10), transparent 40%),
+        radial-gradient(circle at 60% 80%, rgba(255,59,59,.06), transparent 45%),
+        linear-gradient(120deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+      filter: blur(8px);
+      animation: drift 18s ease-in-out infinite alternate;
+      opacity:.9;
+    }
+    .bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: .08;
+      animation: dust 22s linear infinite;
+      transform: translate3d(0,0,0);
+    }
+    @keyframes drift{
+      0%{ transform: translate(-2%, -1%) scale(1.02) rotate(-.3deg); }
+      100%{ transform: translate(2%, 1%) scale(1.06) rotate(.3deg); }
+    }
+    @keyframes dust{
+      0%{ transform: translateY(0); }
+      100%{ transform: translateY(80px); }
+    }
+
+    /* ===== Siren light overlay ===== */
+    .siren{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:2;
+      mix-blend-mode: screen;
+      opacity:.35;
+    }
+    .siren .beam{
+      position:absolute; top:-15%; bottom:-15%;
+      width:55vw;
+      filter: blur(22px);
+      transform: skewX(-12deg);
+      opacity:.0;
+    }
+    .siren .blue{
+      left:-10%;
+      background: radial-gradient(circle at 30% 40%, rgba(42,167,255,.85), transparent 60%);
+      animation: pulseBlue 2.2s ease-in-out infinite;
+    }
+    .siren .red{
+      right:-10%;
+      background: radial-gradient(circle at 70% 40%, rgba(255,59,59,.75), transparent 60%);
+      animation: pulseRed 2.2s ease-in-out infinite;
+    }
+    @keyframes pulseBlue{
+      0%, 45%{ opacity:0; transform: translateX(-2%) skewX(-12deg) scale(1.0); }
+      55%{ opacity:.75; }
+      75%{ opacity:.25; transform: translateX(6%) skewX(-12deg) scale(1.06); }
+      100%{ opacity:0; transform: translateX(10%) skewX(-12deg) scale(1.0); }
+    }
+    @keyframes pulseRed{
+      0%, 55%{ opacity:0; transform: translateX(2%) skewX(-12deg) scale(1.0); }
+      65%{ opacity:.65; }
+      85%{ opacity:.25; transform: translateX(-6%) skewX(-12deg) scale(1.06); }
+      100%{ opacity:0; transform: translateX(-10%) skewX(-12deg) scale(1.0); }
+    }
+
+    /* ===== Layout ===== */
+    .wrap{
+      position:relative;
+      z-index:3;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 18px 80px;
+    }
+
+    .topbar{
+      position: sticky;
+      top: 12px;
+      z-index: 5;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: rgba(8, 12, 22, .55);
+      backdrop-filter: blur(10px);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 0;
+    }
+    .logo{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      flex: 0 0 auto;
+    }
+    .logo img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .brand .t{
+      display:flex; flex-direction:column;
+      line-height:1.05;
+      min-width:0;
+    }
+    .brand .t strong{
+      font-size: .98rem;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand .t span{
+      color: var(--muted);
+      font-size: .86rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .clock{
+      display:flex; align-items:center; gap:10px;
+      font-variant-numeric: tabular-nums;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(216,180,90,.25);
+      background: rgba(216,180,90,.08);
+    }
+    .clock .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(216,180,90,1), rgba(216,180,90,.2));
+      box-shadow: 0 0 18px rgba(216,180,90,.55);
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    @keyframes blink{
+      0%, 60%{ transform: scale(.85); opacity:.65; }
+      70%{ transform: scale(1.15); opacity:1; }
+      100%{ transform: scale(.85); opacity:.70; }
+    }
+
+    header.hero{
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), rgba(10, 16, 28, .55));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{ padding: 18px 18px 16px; }
+
+    .heroTitle{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(42,167,255,.25);
+      background: rgba(42,167,255,.08);
+      color: rgba(225,245,255,.95);
+      letter-spacing: .3px;
+      font-size: .9rem;
+    }
+    .badge .mini{
+      width: 26px; height: 18px;
+      border-radius: 6px;
+      background:
+        linear-gradient(90deg, rgba(42,167,255,.9), rgba(42,167,255,.2));
+      position:relative;
+      overflow:hidden;
+    }
+    .badge .mini::after{
+      content:"";
+      position:absolute; inset:-40% -60%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+      transform: rotate(20deg);
+      animation: sweep 2.8s linear infinite;
+      opacity:.7;
+    }
+    @keyframes sweep{
+      0%{ transform: translateX(-40%) rotate(20deg); }
+      100%{ transform: translateX(40%) rotate(20deg); }
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+      letter-spacing: .4px;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 62ch;
+    }
+
+    .heroSide{
+      background:
+        radial-gradient(650px 280px at 50% 0%, rgba(216,180,90,.20), transparent 60%),
+        linear-gradient(180deg, rgba(18, 26, 44, .60), rgba(10, 16, 28, .35));
+      position:relative;
+    }
+    .heroSide .inner{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      justify-content:space-between;
+    }
+    .seal{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+    }
+    .seal .bigLogo{
+      width: 76px; height: 76px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      flex: 0 0 auto;
+    }
+    .seal .bigLogo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .seal .sealText{
+      display:flex; flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .seal .sealText strong{
+      text-transform:uppercase;
+      letter-spacing: 1.6px;
+      font-size: .95rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .seal .sealText span{
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin: 2px 0;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .chip{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.88);
+      font-size: .9rem;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .chip b{ color: rgba(255,255,255,.95); }
+
+    main{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .sectionTitle{
+      margin:0 0 10px;
+      font-size: 1.05rem;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.88);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .sectionTitle .bar{
+      height: 10px;
+      width: 36px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(216,180,90,.95), rgba(216,180,90,.15));
+      box-shadow: 0 0 24px rgba(216,180,90,.25);
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+    .row span{ color: var(--muted); }
+    .row strong{ font-weight: 650; }
+
+    .note{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,.72);
+      line-height: 1.55;
+    }
+
+    .cta{
+      margin-top: 18px;
+      grid-column: 1 / -1;
+    }
+
+    .ctaBox{
+      border: 1px solid rgba(42,167,255,.20);
+      background: linear-gradient(180deg, rgba(42,167,255,.10), rgba(10,16,28,.55));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .ctaBox .inner{
+      padding: 16px 18px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .ctaBox .inner .text{
+      max-width: 70ch;
+    }
+    .ctaBox .inner h2{
+      margin:0 0 8px;
+      font-size: 1.2rem;
+      letter-spacing:.3px;
+    }
+    .ctaBox .inner p{
+      margin:0;
+      color: var(--muted);
+      line-height:1.55;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      margin-left:auto;
+    }
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight: 650;
+      letter-spacing: .2px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(216,180,90,.25);
+    }
+    .btn.primary{
+      border-color: rgba(216,180,90,.40);
+      background: rgba(216,180,90,.10);
+    }
+    .btn small{ opacity:.85; font-weight:600; }
+
+    footer{
+      margin-top: 18px;
+      color: rgba(255,255,255,.55);
+      text-align:center;
+      font-size: .92rem;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px){
+      header.hero{ grid-template-columns: 1fr; }
+      main{ grid-template-columns: 1fr; }
+      .clock{ display:none; }
+    }
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion: reduce){
+      .bg::before, .bg::after, .siren .beam, .badge .mini::after, .clock .dot{ animation:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <div class="siren" aria-hidden="true">
+    <div class="beam blue"></div>
+    <div class="beam red"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" title="LSSD / Sheriff Logo">
+          <!-- WICHTIG: Lege Sheriff.png in den gleichen Ordner wie index.html -->
+          <img src="Sheriff.png" alt="Sheriff Logo" />
+        </div>
+        <div class="t">
+          <strong>BCSD • Schriftliche Bewerbung</strong>
+          <span>Jeff Jeremain • Blaine County Sheriff Department</span>
+        </div>
+      </div>
+
+      <div class="clock" title="Realtime — Europe/Berlin">
+        <div class="dot"></div>
+        <div>
+          <div style="font-size:.86rem; color: rgba(255,255,255,.72); line-height:1;">Dienstzeit (Berlin)</div>
+          <div id="clockText" style="font-weight:750; letter-spacing:.4px;">--:--:--</div>
+        </div>
+      </div>
+    </div>
+
+    <header class="hero">
+      <section class="card">
+        <div class="inner heroTitle">
+          <div class="badge">
+            <span class="mini" aria-hidden="true"></span>
+            <span><b>Recruitment File</b> • BCSD Application</span>
+          </div>
+          <h1>Jeff Jeremain — Bewerbung beim BCSD</h1>
+          <p class="sub">
+            Sehr geehrte Damen und Herren des <b>Blaine Country Sheriff Department</b>,<br />
+            hiermit reiche ich meine schriftliche Bewerbung ein. Unten finden Sie meine IC-/OOC-Daten,
+            Qualifikationen sowie meinen aktuellen Status.
+          </p>
+        </div>
+      </section>
+
+      <aside class="card heroSide">
+        <div class="inner">
+          <div class="seal">
+            <div class="bigLogo">
+              <img src="Sheriff.png" alt="Sheriff Logo Groß" />
+            </div>
+            <div class="sealText">
+              <strong>Serve & Protect</strong>
+              <span>Los Santos County / Blaine County Style</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="chips">
+            <div class="chip"><b>Visum:</b> Level 15</div>
+            <div class="chip"><b>Führerscheine:</b> Alle</div>
+            <div class="chip"><b>Straffrei:</b> &gt; 14 Tage</div>
+            <div class="chip"><b>Kontakt:</b> 6029103965</div>
+          </div>
+
+          <p class="note">
+            Hinweis: Design im GTA-Sheriff-Look mit animierten Effekten (Blaulicht/Background).
+            Für weniger Animation bitte „Reduzierte Bewegung“ im System aktivieren.
+          </p>
+        </div>
+      </aside>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>Persönliche Daten</h3>
+          <div class="kv">
+            <div class="row"><span>Name</span><strong>Jeff Jeremain</strong></div>
+            <div class="row"><span>Alter (IC)</span><strong>36 Jahre</strong></div>
+            <div class="row"><span>Alter (OOC)</span><strong>19 Jahre</strong></div>
+            <div class="row"><span>Telefonnummer</span><strong>6029103965</strong></div>
+          </div>
+          <p class="note">
+            Ich stehe für Rückfragen oder ein persönliches Gespräch jederzeit zur Verfügung.
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="inner">
+          <h3 class="sectionTitle"><span class="bar"></span>Qualifikationen & Status</h3>
+          <div class="kv">
+            <div class="row"><span>Visum Level</span><strong>15</strong></div>
+            <div class="row"><span>Führerscheine</span><strong>Alle vorhanden</strong></div>
+            <div class="row"><span>Strafregister</span><strong>Mehr als 14 Tage straffrei</strong></div>
+          </div>
+          <p class="note">
+            Motivation: Professionalität, Teamarbeit, saubere Kommunikation und ruhiges Handeln in Stresssituationen.
+          </p>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="ctaBox">
+          <div class="inner">
+            <div class="text">
+              <h2>Abschluss</h2>
+              <p>
+                Ich bedanke mich für die Prüfung meiner Bewerbung und freue mich darauf,
+                mich im Dienst des BCSD zu beweisen.
+              </p>
+            </div>
+            <div class="actions">
+              <button class="btn primary" onclick="window.print()" title="Als PDF speichern (Drucken)">
+                🖨️ <span>Drucken</span> <small>/ PDF</small>
+              </button>
+              <button class="btn" id="copyBtn" title="Telefonnummer kopieren">
+                📋 <span>Nummer kopieren</span>
+              </button>
+              <button class="btn" id="toggleSirenBtn" title="Blaulicht an/aus">
+                🚨 <span>Blaulicht</span> <small id="sirenState">AN</small>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> • Jeff Jeremain • BCSD Bewerbung • GitHub Pages
+    </footer>
+  </div>
+
+  <script>
+    // ===== Berlin clock =====
+    const clockEl = document.getElementById("clockText");
+    function tickBerlin(){
+      const now = new Date();
+      const fmt = new Intl.DateTimeFormat("de-DE", {
+        timeZone: "Europe/Berlin",
+        weekday: "short",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      clockEl.textContent = fmt.format(now);
+    }
+    tickBerlin();
+    setInterval(tickBerlin, 1000);
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Copy phone
+    const phone = "6029103965";
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(phone);
+        const btn = document.getElementById("copyBtn");
+        const old = btn.innerHTML;
+        btn.innerHTML = "✅ <span>Kopiert</span>";
+        setTimeout(()=> btn.innerHTML = old, 1200);
+      } catch (e) {
+        alert("Kopieren nicht möglich. Nummer: " + phone);
+      }
+    });
+
+    // Toggle siren overlay
+    const siren = document.querySelector(".siren");
+    const state = document.getElementById("sirenState");
+    let sirenOn = true;
+    document.getElementById("toggleSirenBtn").addEventListener("click", () => {
+      sirenOn = !sirenOn;
+      siren.style.display = sirenOn ? "block" : "none";
+      state.textContent = sirenOn ? "AN" : "AUS";
+    });
+  </script>
+</body>
+</html>
