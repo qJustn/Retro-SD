@@ -1,284 +1,899 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Los Santos County Sheriff Department | Recruitment Division</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LSCSO | Recruitment & Professional Standards</title>
+<meta name="description" content="Los Santos County Sheriff Office – Recruitment Portal (Roleplay). Bewerbung: Jeff Jeremain." />
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --navy:#0a1a2f;
-  --navy2:#0f2744;
-  --gold:#c8a95b;
-  --light:#f5f7fa;
-}
+  :root{
+    --navy-0:#06101d;
+    --navy-1:#08182a;
+    --navy-2:#0b223b;
+    --navy-3:#0f2b4a;
+    --ink:#eef2ff;
+    --muted:#b9c4da;
+    --muted2:#8ea0bf;
 
-*{margin:0;padding:0;box-sizing:border-box}
+    --gold:#c8a95b;
+    --gold2:#b58f36;
 
-body{
-  font-family:Roboto,sans-serif;
-  color:white;
-  background:#06101d;
-  overflow-x:hidden;
-}
+    --line:rgba(200,169,91,.35);
+    --line2:rgba(200,169,91,.18);
 
-/* 🌊 3D Waving Flag Background */
-.flag-bg{
-  position:fixed;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #b22234 0px,
-      #b22234 20px,
-      #ffffff 20px,
-      #ffffff 40px
-    );
-  opacity:.08;
-  animation:wave 8s ease-in-out infinite alternate;
-  z-index:-2;
-}
+    --shadow:rgba(0,0,0,.60);
+    --card:rgba(10, 26, 47, .70);
 
-@keyframes wave{
-  0%{transform:perspective(800px) rotateX(0deg) translateX(-2%)}
-  50%{transform:perspective(800px) rotateX(3deg) translateX(2%)}
-  100%{transform:perspective(800px) rotateX(0deg) translateX(-2%)}
-}
+    --ok:#4dda91;
+    --warn:#ffcc00;
 
-.overlay{
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at 20% 20%, rgba(0,40,80,.8), transparent 70%);
-  z-index:-1;
-}
+    --radius:14px;
+  }
 
-/* Layout */
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 20px;
-}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(1000px 600px at 20% 10%, rgba(200,169,91,.10), transparent 60%),
+                linear-gradient(135deg, var(--navy-0), var(--navy-1));
+    overflow-x:hidden;
+  }
 
-/* HEADER */
-.header{
-  text-align:center;
-  margin-bottom:50px;
-}
+  /* 🇺🇸 Realistic waving flag layer */
+  .flag-wrap{
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    pointer-events:none;
+    opacity:.10;
+    filter:saturate(1.05);
+  }
+  .flag{
+    position:absolute;
+    inset:-20%;
+    background:
+      /* canton */
+      radial-gradient(circle at 18% 22%, rgba(255,255,255,.85) 0 1px, transparent 1.5px) 0 0/20px 20px,
+      linear-gradient(#3c3b6e,#3c3b6e) 0 0/42% 45% no-repeat,
+      /* stripes */
+      repeating-linear-gradient(0deg,
+        #b22234 0px, #b22234 22px,
+        #ffffff 22px, #ffffff 44px);
+    transform: translateZ(0);
+    animation: flagWave 10s ease-in-out infinite;
+  }
+  @keyframes flagWave{
+    0%   { transform: perspective(900px) rotateX(2.5deg) rotateY(-2deg) translateX(-2%) translateY(0%); filter: blur(.2px); }
+    50%  { transform: perspective(900px) rotateX(-2deg) rotateY(2.5deg) translateX(2%)  translateY(-1%); filter: blur(.35px); }
+    100% { transform: perspective(900px) rotateX(2.5deg) rotateY(-2deg) translateX(-2%) translateY(0%); filter: blur(.2px); }
+  }
 
-/* 🎖 Gold Metallic Frame */
-.logo-frame{
-  display:inline-block;
-  padding:15px;
-  border-radius:50%;
-  background:linear-gradient(145deg,#3a3a3a,#1a1a1a);
-  border:4px solid var(--gold);
-  box-shadow:
-    0 0 40px rgba(200,169,91,.5),
-    inset 0 0 30px rgba(0,0,0,.8);
-  position:relative;
-  overflow:hidden;
-}
+  /* dark overlay */
+  .overlay{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    pointer-events:none;
+    background:
+      radial-gradient(900px 520px at 20% 20%, rgba(0,60,120,.45), transparent 65%),
+      radial-gradient(900px 520px at 80% 80%, rgba(0,0,0,.35), transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15));
+  }
 
-.logo-frame::after{
-  content:"";
-  position:absolute;
-  top:-60%;
-  left:-70%;
-  width:50%;
-  height:200%;
-  background:linear-gradient(
-    120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,.3) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  transform:rotate(25deg);
-  animation:shine 6s infinite;
-}
+  /* subtle UI texture */
+  .texture{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 56px 56px, 56px 56px;
+    opacity:.12;
+    mix-blend-mode: overlay;
+  }
 
-@keyframes shine{
-  0%{left:-70%}
-  50%{left:130%}
-  100%{left:130%}
-}
+  /* ===== Government Top Bar / Nav ===== */
+  .govbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background: rgba(6,16,29,.78);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
 
-.logo{
-  width:200px;
-  display:block;
-  filter:drop-shadow(0 0 30px rgba(200,169,91,.4));
-}
+  .govbar .inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+  }
 
-h1{
-  font-family:Oswald,sans-serif;
-  font-size:42px;
-  letter-spacing:2px;
-  color:var(--gold);
-  margin-top:25px;
-}
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width: 260px;
+  }
 
-.subtitle{
-  margin-top:8px;
-  color:#ccc;
-  font-size:15px;
-}
+  .seal{
+    width:40px;
+    height:40px;
+    border-radius: 12px;
+    border:1px solid var(--line2);
+    background: linear-gradient(180deg, rgba(200,169,91,.18), rgba(0,0,0,.18));
+    display:grid;
+    place-items:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+  }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:40px;
-}
+  .seal::after{
+    content:"";
+    position:absolute;
+    top:-60%;
+    left:-70%;
+    width:50%;
+    height:220%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.28) 50%, transparent 100%);
+    transform: rotate(25deg);
+    animation: shine 6.5s infinite;
+    opacity:.65;
+  }
+  @keyframes shine{
+    0%{left:-70%}
+    45%{left:130%}
+    100%{left:130%}
+  }
 
-/* CARD */
-.card{
-  background:var(--navy2);
-  padding:30px;
-  border-radius:12px;
-  border:1px solid rgba(200,169,91,.4);
-  box-shadow:0 0 40px rgba(0,0,0,.7);
-}
+  .brand-title{
+    line-height:1.2;
+  }
+  .brand-title .t1{
+    font-family: Oswald, Inter, sans-serif;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 15px;
+  }
+  .brand-title .t2{
+    color: var(--muted2);
+    font-size: 12px;
+  }
 
-.card h2{
-  font-family:Oswald,sans-serif;
-  color:var(--gold);
-  margin-bottom:20px;
-}
+  .nav{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .nav a{
+    text-decoration:none;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(0,0,0,.14);
+    transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+  }
+  .nav a:hover{
+    transform: translateY(-1px);
+    border-color: rgba(200,169,91,.35);
+    box-shadow: 0 0 22px rgba(200,169,91,.14);
+  }
 
-.text{
-  line-height:1.9;
-  font-size:15.5px;
-}
+  .subnav{
+    border-top: 1px solid rgba(255,255,255,.06);
+    background: rgba(6,16,29,.55);
+  }
+  .subnav .inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .crumbs{
+    color: var(--muted2);
+    font-size: 12.5px;
+  }
+  .statusline{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .pill{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(200,169,91,.22);
+    background: rgba(0,0,0,.14);
+    color: #e9edff;
+    font-size: 12.5px;
+    white-space:nowrap;
+  }
+  .dot{
+    width:8px;height:8px;border-radius:999px;
+    background: var(--gold);
+    box-shadow: 0 0 14px rgba(200,169,91,.30);
+    animation: blink 2.8s ease-in-out infinite;
+    opacity:.7;
+  }
+  @keyframes blink{
+    0%,100%{opacity:.35; transform: scale(.95)}
+    50%{opacity:1; transform: scale(1.18)}
+  }
 
-/* FORM */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
+  /* ===== Page ===== */
+  .page{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 22px 16px 46px;
+  }
 
-input, textarea, select{
-  padding:12px;
-  border-radius:6px;
-  border:1px solid rgba(255,255,255,.1);
-  background:#081827;
-  color:white;
-  font-size:14px;
-}
+  .hero{
+    margin-top: 14px;
+    display:grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 16px;
+    align-items:stretch;
+  }
 
-input:focus, textarea:focus{
-  outline:none;
-  border-color:var(--gold);
-}
+  .panel{
+    background: var(--card);
+    border: 1px solid var(--line2);
+    border-radius: var(--radius);
+    box-shadow: 0 18px 60px var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
 
-/* Checkbox Section */
-.checkbox-group{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  margin-top:10px;
-}
+  .panel-header{
+    padding: 18px 18px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+  }
 
-.checkbox-group label{
-  font-size:14px;
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
+  .panel-header .h{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
 
-button{
-  padding:12px;
-  border:none;
-  background:var(--gold);
-  color:black;
-  font-weight:bold;
-  border-radius:6px;
-  cursor:pointer;
-  transition:.2s;
-}
+  .logo-frame{
+    width:92px;
+    height:92px;
+    border-radius: 20px;
+    border: 2px solid rgba(200,169,91,.55);
+    background: linear-gradient(145deg, rgba(255,255,255,.05), rgba(0,0,0,.25));
+    box-shadow: 0 0 40px rgba(200,169,91,.22), inset 0 0 20px rgba(0,0,0,.55);
+    display:grid;
+    place-items:center;
+    position:relative;
+    overflow:hidden;
+    flex:0 0 auto;
+  }
+  .logo-frame::after{
+    content:"";
+    position:absolute;
+    top:-60%;
+    left:-70%;
+    width:55%;
+    height:240%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 50%, transparent 100%);
+    transform: rotate(25deg);
+    animation: shine 7s infinite;
+    opacity:.55;
+    pointer-events:none;
+  }
+  .logo-frame img{
+    width: 78%;
+    height: auto;
+    display:block;
+    filter: drop-shadow(0 0 18px rgba(200,169,91,.20));
+  }
 
-button:hover{opacity:.85}
+  .titleblock h1{
+    font-family: Oswald, Inter, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 28px;
+    line-height:1.1;
+    color: var(--gold);
+  }
+  .titleblock p{
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height:1.45;
+  }
 
-.footer{
-  text-align:center;
-  margin-top:50px;
-  font-size:13px;
-  color:#aaa;
-}
+  .meta-right{
+    text-align:right;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    min-width: 240px;
+  }
+  .meta-right .small{
+    color: var(--muted2);
+    font-size: 12.5px;
+  }
+  .mono{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    letter-spacing:.2px;
+  }
 
-@media(max-width:1000px){
-  .grid{grid-template-columns:1fr}
-}
+  .panel-body{
+    padding: 18px 18px 18px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .card{
+    background: rgba(0,0,0,.14);
+    border: 1px solid var(--line2);
+    border-radius: var(--radius);
+    padding: 16px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card h2{
+    font-family: Oswald, Inter, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .9px;
+    color: var(--gold);
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .card p{
+    color: #eef2ff;
+    line-height: 1.85;
+    font-size: 14.8px;
+  }
+
+  .kv{
+    display:grid;
+    gap:10px;
+  }
+  .kv .row{
+    border-left: 4px solid var(--gold);
+    background: rgba(0,0,0,.12);
+    padding: 12px 12px;
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px rgba(200,169,91,.08) inset;
+  }
+  .kv .k{
+    color: var(--muted2);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing:.7px;
+  }
+  .kv .v{
+    margin-top: 2px;
+    font-weight: 800;
+    color: #f2f5ff;
+    font-size: 14.5px;
+  }
+
+  /* ===== Form ===== */
+  .form{
+    display:grid;
+    gap: 12px;
+  }
+  label{
+    display:block;
+    color: var(--muted);
+    font-size: 12.5px;
+    margin-bottom: 6px;
+  }
+  input, textarea, select{
+    width:100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(4,10,18,.45);
+    color: #f2f5ff;
+    font-size: 14px;
+    outline:none;
+    transition: border-color .12s ease, box-shadow .12s ease;
+  }
+  input:focus, textarea:focus, select:focus{
+    border-color: rgba(200,169,91,.55);
+    box-shadow: 0 0 0 3px rgba(200,169,91,.16);
+  }
+  textarea{ min-height: 110px; resize: vertical; }
+
+  .two{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .three{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .checks{
+    display:grid;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(0,0,0,.10);
+  }
+  .check{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    color:#e9edff;
+    font-size: 13.5px;
+    line-height:1.35;
+  }
+  .check input{
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    accent-color: var(--gold);
+  }
+  .hint{
+    color: var(--muted2);
+    font-size: 12.5px;
+    line-height:1.45;
+  }
+
+  .filebox{
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px dashed rgba(200,169,91,.40);
+    background: rgba(0,0,0,.10);
+  }
+  .filebox .files{
+    margin-top: 8px;
+    display:grid;
+    gap:6px;
+    color: var(--muted);
+    font-size: 12.5px;
+  }
+  .filetag{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(0,0,0,.10);
+  }
+  .filetag b{ color:#e9edff; font-weight:700; }
+
+  .actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top: 6px;
+  }
+  .btn{
+    cursor:pointer;
+    border:none;
+    padding: 11px 12px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 13.5px;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    user-select:none;
+  }
+  .btn.primary{
+    background: linear-gradient(180deg, var(--gold), var(--gold2));
+    color:#0b0f16;
+    box-shadow: 0 10px 28px rgba(200,169,91,.22);
+  }
+  .btn.secondary{
+    background: rgba(0,0,0,.18);
+    color:#eef2ff;
+    border: 1px solid rgba(200,169,91,.30);
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn:active{ transform: translateY(0px); opacity:.92; }
+
+  .toast{
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(77,218,145,.25);
+    background: linear-gradient(180deg, rgba(77,218,145,.12), rgba(0,0,0,.10));
+    color:#eafff4;
+    display:none;
+  }
+
+  .footer{
+    margin-top: 18px;
+    color: var(--muted2);
+    font-size: 12.5px;
+    padding: 14px 4px 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .hero, .grid{ grid-template-columns: 1fr; }
+    .meta-right{ text-align:left; }
+    .three{ grid-template-columns: 1fr; }
+    .two{ grid-template-columns: 1fr; }
+  }
+
+  /* Print/PDF clean */
+  @media print{
+    .govbar, .flag-wrap, .overlay, .texture { display:none !important; }
+    body{ background:#fff; color:#000; }
+    .page{ padding: 0; }
+    .panel, .card{ box-shadow:none !important; background:#fff !important; color:#000 !important; }
+    .panel, .card{ border: 1px solid #ddd !important; }
+    .btn{ display:none !important; }
+    .toast{ display:none !important; }
+    .pill, .dot{ display:none !important; }
+  }
 </style>
 </head>
 
 <body>
+  <div class="flag-wrap" aria-hidden="true"><div class="flag"></div></div>
+  <div class="overlay" aria-hidden="true"></div>
+  <div class="texture" aria-hidden="true"></div>
 
-<div class="flag-bg"></div>
-<div class="overlay"></div>
-
-<div class="container">
-
-  <div class="header">
-    <div class="logo-frame">
-      <img src="Sheriff.png" class="logo" alt="Sheriff Logo">
+  <!-- Government Nav -->
+  <div class="govbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="seal" aria-hidden="true">★</div>
+        <div class="brand-title">
+          <div class="t1">Los Santos County Sheriff Office</div>
+          <div class="t2">Recruitment & Professional Standards Division</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Navigation">
+        <a href="#overview">Overview</a>
+        <a href="#statement">Statement</a>
+        <a href="#application">Application</a>
+        <a href="#documents">Documents</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <h1>LOS SANTOS COUNTY SHERIFF</h1>
-    <div class="subtitle">Recruitment & Professional Standards Division</div>
-  </div>
 
-  <div class="grid">
-
-    <!-- Bewerbung -->
-    <div class="card">
-      <h2>Applicant Personal Statement</h2>
-      <div class="text">
-        Hiermit bewerbe ich mich offiziell als Deputy des Los Santos County Sheriff Departments.
-        Mein Ziel ist es, Integrität, Verantwortung und Professionalität im Dienst zu vertreten.
-        <br><br>
-        Mit Visumstufe 14 verfüge ich über umfangreiche Stadterfahrung.
-        Disziplin, Teamarbeit und ein ruhiger Umgang in kritischen Situationen gehören zu meinen Stärken.
-        <br><br>
-        Ich bin bereit, die Standards des Departments zu erfüllen und aktiv zur öffentlichen Sicherheit beizutragen.
-        <br><br>
-        <strong>Jeff Jeremain</strong>
+    <div class="subnav">
+      <div class="inner">
+        <div class="crumbs">Home / Sheriff Office / Recruitment / Application Portal</div>
+        <div class="statusline">
+          <span class="pill"><span class="dot" aria-hidden="true"></span>Portal Online</span>
+          <span class="pill mono" id="appIdPill">APP-ID: —</span>
+          <span class="pill mono" id="stampPill">TS: —</span>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Recruitment Form -->
-    <div class="card">
-      <h2>Official Recruitment Application</h2>
-
-      <form onsubmit="event.preventDefault(); alert('Application Submitted Successfully');">
-
-        <input type="text" value="Jeff Jeremain" required>
-        <input type="number" value="36" required>
-        <input type="number" value="19" required>
-        <input type="text" value="14" required>
-
-        <textarea rows="3" placeholder="Why do you want to join the Department?" required></textarea>
-
-        <div class="checkbox-group">
-          <label><input type="checkbox" required> I agree to a Background Check</label>
-          <label><input type="checkbox" required> I authorize Driving Record Verification</label>
-          <label><input type="checkbox" required> I confirm no felony convictions</label>
-          <label><input type="checkbox" required> I accept Department Code of Conduct</label>
+  <div class="page">
+    <!-- Hero Panel -->
+    <section class="panel" id="overview" aria-label="Overview">
+      <div class="panel-header">
+        <div class="h">
+          <div class="logo-frame" title="LSCSO Emblem">
+            <!-- Use Sheriff.png (recommended). Change to Sheriff.png if needed. -->
+            <img src="Sheriff.png" alt="LSCSO Emblem">
+          </div>
+          <div class="titleblock">
+            <h1>Recruitment Application Portal</h1>
+            <p>County-style recruitment workflow • RP-ready • Print/PDF supported</p>
+          </div>
         </div>
 
-        <button type="submit">Submit Application</button>
-        <button type="button" onclick="window.print()">🖨️ Export as PDF</button>
+        <div class="meta-right">
+          <div class="small">Application Number</div>
+          <div class="mono" id="appNumber" style="font-weight:800;color:#f2f5ff;">—</div>
+          <div class="small">Auto Timestamp</div>
+          <div class="mono" id="timestamp">—</div>
+        </div>
+      </div>
 
-      </form>
+      <div class="panel-body">
+        <div class="grid">
+          <article class="card" id="statement">
+            <h2>Applicant Personal Statement</h2>
+            <p>
+              Sehr geehrtes Sheriff Department,<br><br>
+              hiermit bewerbe ich mich offiziell als Deputy in Ihrem Department. Mein Ziel ist es, aktiv zur Sicherheit
+              der Stadt beizutragen und das Department professionell, respektvoll und zuverlässig zu vertreten.<br><br>
+              Disziplin, Teamarbeit und ein ruhiger Umgang in stressigen Situationen gehören für mich selbstverständlich dazu.
+              Durch meine Visumstufe 14 bringe ich umfassende Stadterfahrung mit und bin bereit, Verantwortung zu übernehmen
+              sowie mich an Hierarchien und Dienstvorschriften zu halten.<br><br>
+              Über eine Einladung zu einem persönlichen Gespräch oder eine Probephase würde ich mich sehr freuen.<br><br>
+              <b>Mit freundlichen Grüßen<br>Jeff Jeremain</b>
+            </p>
+          </article>
+
+          <aside class="card">
+            <h2>Applicant Profile</h2>
+            <div class="kv">
+              <div class="row">
+                <div class="k">Name</div>
+                <div class="v">Jeff Jeremain</div>
+              </div>
+              <div class="row">
+                <div class="k">Visa Level</div>
+                <div class="v">14</div>
+              </div>
+              <div class="row">
+                <div class="k">Age (IC)</div>
+                <div class="v">36</div>
+              </div>
+              <div class="row">
+                <div class="k">Age (OOC)</div>
+                <div class="v">19</div>
+              </div>
+            </div>
+            <p class="hint" style="margin-top:10px;">
+              Hinweis: Werte sind vorausgefüllt und können im Formular unten angepasst werden.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application + Documents -->
+    <div class="grid" style="margin-top:16px;">
+      <section class="card" id="application" aria-label="Application Form">
+        <h2>Official Recruitment Application</h2>
+
+        <form class="form" id="appForm">
+          <div class="two">
+            <div>
+              <label for="fullName">Full Name</label>
+              <input id="fullName" name="fullName" type="text" value="Jeff Jeremain" required>
+            </div>
+            <div>
+              <label for="position">Position</label>
+              <select id="position" name="position" required>
+                <option value="Deputy" selected>Deputy</option>
+                <option value="Cadet">Cadet</option>
+                <option value="Reserve">Reserve Officer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="three">
+            <div>
+              <label for="visa">Visa Level</label>
+              <input id="visa" name="visa" type="number" value="14" min="1" max="999" required>
+            </div>
+            <div>
+              <label for="ageIc">Age (IC)</label>
+              <input id="ageIc" name="ageIc" type="number" value="36" min="1" max="120" required>
+            </div>
+            <div>
+              <label for="ageOoc">Age (OOC)</label>
+              <input id="ageOoc" name="ageOoc" type="number" value="19" min="1" max="120" required>
+            </div>
+          </div>
+
+          <div>
+            <label for="availability">Availability (short)</label>
+            <input id="availability" name="availability" type="text" placeholder="e.g., evenings, weekends, flexible" required>
+          </div>
+
+          <div>
+            <label for="motivation">Motivation / Why do you want to join?</label>
+            <textarea id="motivation" name="motivation" required placeholder="Write a concise, professional motivation..."></textarea>
+            <div class="hint">Tip: Keep it RP-friendly and professional (short, clear, respectful).</div>
+          </div>
+
+          <div class="checks">
+            <div class="check">
+              <input type="checkbox" id="bgcheck" required>
+              <label for="bgcheck" style="margin:0;">
+                I agree to a <b>background check</b> and confirm the information provided is accurate.
+              </label>
+            </div>
+            <div class="check">
+              <input type="checkbox" id="driving" required>
+              <label for="driving" style="margin:0;">
+                I authorize <b>driving record verification</b> (if applicable to the position).
+              </label>
+            </div>
+            <div class="check">
+              <input type="checkbox" id="felony" required>
+              <label for="felony" style="margin:0;">
+                I confirm <b>no felony convictions</b> and accept departmental screening standards.
+              </label>
+            </div>
+            <div class="check">
+              <input type="checkbox" id="coc" required>
+              <label for="coc" style="margin:0;">
+                I accept the <b>Code of Conduct</b>, chain of command and departmental procedures.
+              </label>
+            </div>
+            <div class="hint">
+              Required acknowledgements. (Roleplay portal simulation)
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit">✅ Submit Application</button>
+            <button class="btn secondary" type="button" id="regenBtn">🔐 Regenerate Application ID</button>
+            <button class="btn secondary" type="button" onclick="window.print()">🖨 Export / Print (PDF)</button>
+          </div>
+
+          <div class="toast" id="toast"></div>
+        </form>
+      </section>
+
+      <section class="card" id="documents" aria-label="Documents">
+        <h2>Documents Upload</h2>
+        <p class="hint">
+          Lade optional Dokumente hoch (z.B. Lebenslauf, Nachweise). Upload ist clientseitig (nur Anzeige der Dateinamen) —
+          perfekt für GitHub Pages / RP-Portal.
+        </p>
+
+        <div class="filebox" style="margin-top:12px;">
+          <label for="docs">Upload Files (PDF/PNG/JPG/DOCX)</label>
+          <input id="docs" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+          <div class="files" id="fileList">
+            <div class="hint">Noch keine Dateien ausgewählt.</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h2 id="contact">Recruitment Contact</h2>
+          <p class="hint">
+            Recruitment Division • County Operations<br>
+            Processing: 24–72 hours (RP)<br>
+            Note: This portal is for roleplay and presentation.
+          </p>
+        </div>
+
+        <div class="footer">
+          <div>© LSCSO – Recruitment Division</div>
+          <div class="mono" id="footerId">—</div>
+        </div>
+      </section>
     </div>
-
   </div>
 
-  <div class="footer">
-    © Los Santos County Sheriff Department – Recruitment Division
-  </div>
+<script>
+  // ---- Helpers
+  const pad = (n, len=2) => String(n).padStart(len, "0");
+  function formatTimestamp(d){
+    // YYYY-MM-DD HH:mm:ss
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+  function randInt(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
+  function randChoice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-</div>
+  // Realistic-ish Application ID (County style)
+  // Example: LSCSO-REC-2026-02-21-7F3A2C
+  function generateAppId(){
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = pad(d.getMonth()+1);
+    const day = pad(d.getDate());
+    const hex = Array.from({length:6}, () => randChoice("0123456789ABCDEF")).join("");
+    return `LSCSO-REC-${y}-${m}-${day}-${hex}`;
+  }
 
+  // Application Number (human-facing)
+  // Example: REC-026-21973
+  function generateAppNumber(){
+    const a = pad(randInt(1, 999), 3);
+    const b = randInt(10000, 99999);
+    return `REC-${a}-${b}`;
+  }
+
+  // ---- Init
+  const appIdPill = document.getElementById("appIdPill");
+  const stampPill = document.getElementById("stampPill");
+  const appNumberEl = document.getElementById("appNumber");
+  const timestampEl = document.getElementById("timestamp");
+  const footerId = document.getElementById("footerId");
+  const regenBtn = document.getElementById("regenBtn");
+  const toast = document.getElementById("toast");
+
+  let currentAppId = generateAppId();
+  let currentAppNumber = generateAppNumber();
+
+  function refreshMeta(){
+    const now = new Date();
+    const ts = formatTimestamp(now);
+    appIdPill.textContent = `APP-ID: ${currentAppId}`;
+    stampPill.textContent = `TS: ${ts}`;
+    appNumberEl.textContent = currentAppNumber;
+    timestampEl.textContent = ts;
+    footerId.textContent = currentAppId;
+  }
+  refreshMeta();
+  setInterval(refreshMeta, 1000); // Auto Timestamp
+
+  regenBtn.addEventListener("click", () => {
+    currentAppId = generateAppId();
+    currentAppNumber = generateAppNumber();
+    refreshMeta();
+    showToast(`New identifiers generated: ${currentAppId} / ${currentAppNumber}`, true);
+  });
+
+  // File list UI
+  const docs = document.getElementById("docs");
+  const fileList = document.getElementById("fileList");
+  docs.addEventListener("change", () => {
+    const files = Array.from(docs.files || []);
+    fileList.innerHTML = "";
+    if(!files.length){
+      fileList.innerHTML = `<div class="hint">Noch keine Dateien ausgewählt.</div>`;
+      return;
+    }
+    files.forEach(f => {
+      const sizeKB = Math.round(f.size/1024);
+      const div = document.createElement("div");
+      div.className = "filetag";
+      div.innerHTML = `<b>${escapeHtml(f.name)}</b><span class="mono">${sizeKB} KB</span>`;
+      fileList.appendChild(div);
+    });
+  });
+
+  // Form submit
+  const form = document.getElementById("appForm");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Basic "submission" message (GitHub Pages safe)
+    const name = document.getElementById("fullName").value.trim() || "Applicant";
+    showToast(`Application submitted (simulation). Thank you, ${name}. Your Application ID: ${currentAppId}`, true);
+    // Scroll to toast
+    toast.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+
+  function showToast(msg, ok){
+    toast.style.display = "block";
+    toast.style.borderColor = ok ? "rgba(77,218,145,.25)" : "rgba(255,204,0,.25)";
+    toast.innerHTML = `<b>${ok ? "Submitted" : "Notice"}:</b> ${escapeHtml(msg)}`;
+  }
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, (m) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+    }[m]));
+  }
+</script>
 </body>
 </html>
