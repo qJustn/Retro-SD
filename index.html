@@ -15,6 +15,7 @@
       --bg0:#07080b;
       --bg1:#0b0d12;
       --card:#0d1017;
+
       --ink:#eef2ff;
       --muted:#b8c0d4;
       --muted2:#8e97ad;
@@ -22,13 +23,11 @@
       --gold:#d7b46a;
       --gold2:#b48a38;
 
-      --line:rgba(215,180,106,.35);
+      --line:rgba(215,180,106,.40);
       --line2:rgba(215,180,106,.18);
 
-      --shadow:rgba(0,0,0,.6);
-      --glow:rgba(215,180,106,.22);
-
-      --ok:rgba(77, 218, 145, .18);
+      --shadow:rgba(0,0,0,.62);
+      --glow:rgba(215,180,106,.18);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -38,14 +37,14 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(900px 500px at 20% 15%, rgba(215,180,106,.14), transparent 55%),
-        radial-gradient(800px 500px at 80% 85%, rgba(215,180,106,.10), transparent 60%),
+        radial-gradient(900px 520px at 18% 12%, rgba(215,180,106,.14), transparent 58%),
+        radial-gradient(820px 520px at 82% 88%, rgba(215,180,106,.10), transparent 60%),
         linear-gradient(135deg, var(--bg0), var(--bg1));
-      padding: 40px 18px;
-      overflow-x:hidden;
       display:flex;
-      justify-content:center;
       align-items:center;
+      justify-content:center;
+      padding: 32px 16px;
+      overflow-x:hidden;
     }
 
     /* subtle texture */
@@ -57,110 +56,113 @@
         radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
         linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 3px 3px, 48px 48px, 48px 48px;
-      opacity:.18;
+      background-size: 3px 3px, 54px 54px, 54px 54px;
+      opacity:.16;
       mix-blend-mode: overlay;
     }
 
-    .wrap{
-      width:100%;
-      max-width: 980px;
-      background:
-        linear-gradient(180deg, rgba(13,16,23,.92), rgba(9,11,16,.92));
+    .page{
+      width:min(980px, 100%);
+      background: linear-gradient(180deg, rgba(13,16,23,.92), rgba(9,11,16,.92));
       border: 1px solid var(--line);
       border-radius: 22px;
-      box-shadow:
-        0 24px 80px var(--shadow),
-        0 0 46px var(--glow);
+      box-shadow: 0 24px 80px var(--shadow), 0 0 44px var(--glow);
       overflow:hidden;
       position:relative;
-      animation: in 900ms ease-out;
+      animation: enter 900ms ease-out;
     }
 
-    @keyframes in{
+    @keyframes enter{
       from{opacity:0; transform: translateY(14px)}
       to{opacity:1; transform: translateY(0)}
     }
 
-    /* header */
+    /* Watermark badge background */
+    .watermark{
+      position:absolute;
+      inset:auto -120px -160px auto;
+      width: 520px;
+      height: 520px;
+      opacity:.10;
+      pointer-events:none;
+      filter: blur(.2px);
+      transform: rotate(-10deg);
+    }
+
+    /* Header */
+    header{
+      padding: 26px 22px 18px;
+      border-bottom: 1px solid var(--line2);
+      position:relative;
+    }
+
+    .header-row{
+      display:flex;
+      gap:16px;
+      align-items:stretch;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
     .hero{
-      padding: 26px 24px 18px;
+      flex: 1 1 560px;
+      min-width: 280px;
+      border: 1px solid var(--line2);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      padding: 16px 16px;
+      display:flex;
+      gap:14px;
+      align-items:center;
       position:relative;
       overflow:hidden;
-      border-bottom: 1px solid var(--line2);
     }
 
     .hero::before{
       content:"";
       position:absolute;
-      inset:-120px -120px auto auto;
+      inset:-140px -160px auto auto;
       width: 360px;
       height: 360px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, rgba(215,180,106,.22), transparent 62%);
-      filter: blur(1px);
-      opacity:.8;
-    }
-
-    .toprow{
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
+      background: radial-gradient(circle at 35% 30%, rgba(215,180,106,.25), transparent 62%);
+      opacity:.75;
     }
 
     .badge{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      flex: 1 1 520px;
-      min-width: 280px;
-      padding: 16px 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line2);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .emblem{
-      width: 84px;
-      height: 84px;
-      flex: 0 0 auto;
+      width: 88px;
+      height: 88px;
       border-radius: 18px;
       border: 1px solid var(--line2);
       background:
-        radial-gradient(circle at 30% 30%, rgba(215,180,106,.25), transparent 60%),
+        radial-gradient(circle at 30% 30%, rgba(215,180,106,.22), transparent 60%),
         linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.10));
       display:grid;
       place-items:center;
       box-shadow: 0 0 22px rgba(215,180,106,.12);
+      flex: 0 0 auto;
       position:relative;
-    }
-
-    .star{
-      width: 54px;
-      height: 54px;
-      filter: drop-shadow(0 0 10px rgba(215,180,106,.20));
+      z-index:1;
     }
 
     .title{
       position:relative;
       z-index:1;
+      width:100%;
     }
 
     .title h1{
       font-family: Oswald, Inter, sans-serif;
-      letter-spacing: .8px;
+      text-transform: uppercase;
+      letter-spacing: .9px;
       font-weight: 700;
       font-size: 38px;
       line-height:1.05;
       color: var(--gold);
-      text-transform: uppercase;
       text-shadow: 0 0 18px rgba(215,180,106,.18);
     }
+
     .title p{
       margin-top: 8px;
       color: var(--muted);
@@ -168,37 +170,13 @@
       line-height:1.4;
     }
 
-    .seal{
-      flex: 0 0 auto;
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px dashed rgba(215,180,106,.55);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
-      text-align:right;
-      min-width: 220px;
-    }
-    .seal .kicker{
-      font-family: Oswald, Inter, sans-serif;
-      letter-spacing:.6px;
-      color: var(--gold);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 16px;
-    }
-    .seal .small{
-      margin-top: 6px;
-      color: var(--muted2);
-      font-size: 13px;
-      line-height:1.45;
-    }
-
-    .pillrow{
+    .pills{
+      margin-top: 12px;
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      margin-top: 14px;
     }
+
     .pill{
       border: 1px solid rgba(215,180,106,.28);
       background: rgba(0,0,0,.18);
@@ -206,15 +184,62 @@
       border-radius: 999px;
       font-size: 13px;
       color: #e9ecf7;
+      white-space:nowrap;
     }
     .pill strong{ color: var(--gold); font-weight: 800; }
 
-    /* content */
-    .content{
-      padding: 18px 24px 22px;
+    .seal{
+      flex: 0 0 280px;
+      border: 1px dashed rgba(215,180,106,.55);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      padding: 14px 14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:6px;
+      min-height: 88px;
+    }
+
+    .seal .kicker{
+      font-family: Oswald, Inter, sans-serif;
+      text-transform: uppercase;
+      letter-spacing:.8px;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    .seal .small{
+      color: var(--muted2);
+      font-size: 13px;
+      line-height:1.45;
+    }
+
+    /* Decorative divider (law enforcement style) */
+    .divider{
+      margin-top: 14px;
+      height: 10px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg,
+          rgba(215,180,106,.95) 0 18%,
+          rgba(0,0,0,.95) 18% 36%,
+          rgba(215,180,106,.95) 36% 54%,
+          rgba(0,0,0,.95) 54% 72%,
+          rgba(215,180,106,.95) 72% 100%);
+      opacity:.35;
+      box-shadow: 0 0 0 1px rgba(215,180,106,.12) inset;
+    }
+
+    /* Main layout */
+    .main{
+      padding: 18px 22px 22px;
       display:grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1.4fr .9fr;
       gap: 16px;
+      align-items:start;
     }
 
     .card{
@@ -223,35 +248,37 @@
       border-radius: 18px;
       padding: 16px 16px;
       box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .letter h2, .side h2{
+      font-family: Oswald, Inter, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--gold);
+      font-size: 17px;
+      margin-bottom: 10px;
     }
 
     .letter{
-      position:relative;
-      overflow:hidden;
-      padding: 18px 18px;
       line-height: 1.75;
       font-size: 16.5px;
-      color: #eef2ff;
+      color:#eef2ff;
+      padding: 18px 18px;
     }
+
     .letter::before{
       content:"";
       position:absolute;
-      right:-70px;
+      right:-60px;
       top:-80px;
       width: 320px;
       height: 320px;
       border-radius: 50%;
-      border: 2px solid rgba(215,180,106,.16);
+      border: 2px solid rgba(215,180,106,.14);
       box-shadow: 0 0 0 12px rgba(215,180,106,.05) inset;
       opacity:.45;
-    }
-    .letter h2{
-      font-family: Oswald, Inter, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-      font-size: 18px;
-      color: var(--gold);
-      margin-bottom: 10px;
     }
 
     .signature{
@@ -262,19 +289,12 @@
       font-size: 16px;
     }
 
-    .side h3{
-      font-family: Oswald, Inter, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-      font-size: 16px;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
-
     .kv{
       display:grid;
       gap:10px;
+      margin-top: 10px;
     }
+
     .kv .row{
       border-left: 4px solid var(--gold);
       background: rgba(0,0,0,.12);
@@ -282,22 +302,26 @@
       border-radius: 14px;
       box-shadow: 0 0 0 1px rgba(215,180,106,.08) inset;
     }
-    .kv .row .k{
+
+    .kv .k{
       color: var(--muted2);
-      font-size: 12.5px;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing:.6px;
+      letter-spacing:.7px;
     }
-    .kv .row .v{
+    .kv .v{
       margin-top: 2px;
-      font-weight: 700;
+      font-weight: 800;
       color: #f2f5ff;
     }
 
     .chips{
-      display:flex; flex-wrap:wrap; gap:8px;
       margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
     }
+
     .chip{
       border: 1px solid rgba(215,180,106,.22);
       background: rgba(0,0,0,.14);
@@ -309,37 +333,22 @@
     .chip::before{
       content:"";
       display:inline-block;
-      width:8px; height:8px;
+      width:8px;height:8px;
       border-radius:999px;
-      margin-right:8px;
       background: rgba(215,180,106,.9);
       box-shadow: 0 0 12px rgba(215,180,106,.25);
+      margin-right:8px;
       vertical-align: middle;
     }
 
-    .note{
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--muted2);
-      line-height:1.5;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(77,218,145,.20);
-      background: linear-gradient(180deg, rgba(77,218,145,.10), rgba(0,0,0,.10));
-    }
-
-    .footer{
-      padding: 14px 24px 18px;
-      border-top: 1px solid var(--line2);
-      color: #7f88a1;
-      font-size: 13px;
+    .btnrow{
+      margin-top: 14px;
       display:flex;
-      justify-content:space-between;
-      gap:12px;
+      gap:10px;
       flex-wrap:wrap;
     }
 
-    a.btn{
+    .btn{
       display:inline-flex;
       align-items:center;
       gap:10px;
@@ -349,80 +358,103 @@
       background: rgba(0,0,0,.16);
       color: #f1f4ff;
       text-decoration:none;
-      font-weight: 700;
+      font-weight: 800;
+      user-select:none;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
-    a.btn:hover{
+    .btn:hover{
       border-color: rgba(215,180,106,.55);
       box-shadow: 0 0 24px rgba(215,180,106,.18);
       transform: translateY(-1px);
     }
 
-    /* responsive */
-    @media (max-width: 900px){
-      .content{ grid-template-columns: 1fr; }
-      .seal{ width:100%; text-align:left; }
+    footer{
+      padding: 14px 22px 18px;
+      border-top: 1px solid var(--line2);
+      color: #7f88a1;
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
-    /* simple inline SVG star fill */
-    .star path{ fill: rgba(215,180,106,.92); }
-    .star .inner{ fill: rgba(0,0,0,.35); }
+    /* SVG coloring */
+    svg.badge-star path{ fill: rgba(215,180,106,.95); }
+    svg.badge-star .cut{ fill: rgba(0,0,0,.35); }
+    svg.shield path{ fill: rgba(215,180,106,.95); }
+    svg.shield .inner{ fill: rgba(0,0,0,.35); }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .main{ grid-template-columns: 1fr; }
+      .seal{ flex: 1 1 100%; }
+      .title h1{ font-size: 34px; }
+    }
   </style>
 </head>
 
 <body>
-  <main class="wrap" role="main" aria-label="Bewerbung Sheriff Department">
+  <main class="page" aria-label="Bewerbung Sheriff Department">
 
-    <header class="hero">
-      <div class="toprow">
-        <section class="badge" aria-label="Header">
-          <div class="emblem" aria-hidden="true">
-            <!-- Sheriff's star emblem (inline SVG) -->
-            <svg class="star" viewBox="0 0 100 100" aria-hidden="true">
+    <!-- Watermark (Sheriff badge) -->
+    <svg class="watermark" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 6l10 18 21-3-6 20 16 14-19 8 2 21-18-11-18 11 2-21-19-8 16-14-6-20 21 3z" fill="rgba(215,180,106,.95)"/>
+      <path d="M50 24l6 10 12-2-3 11 9 8-11 5 1 12-10-6-10 6 1-12-11-5 9-8-3-11 12 2z" fill="rgba(0,0,0,.35)"/>
+    </svg>
+
+    <header>
+      <div class="header-row">
+        <section class="hero">
+          <div class="badge" aria-hidden="true">
+            <!-- Sheriff Star -->
+            <svg class="badge-star" viewBox="0 0 100 100" width="56" height="56" aria-hidden="true">
               <path d="M50 6l10 18 21-3-6 20 16 14-19 8 2 21-18-11-18 11 2-21-19-8 16-14-6-20 21 3z"/>
-              <path class="inner" d="M50 24l6 10 12-2-3 11 9 8-11 5 1 12-10-6-10 6 1-12-11-5 9-8-3-11 12 2z"/>
+              <path class="cut" d="M50 24l6 10 12-2-3 11 9 8-11 5 1 12-10-6-10 6 1-12-11-5 9-8-3-11 12 2z"/>
             </svg>
           </div>
 
           <div class="title">
             <h1>Sheriff Department</h1>
-            <p>Bewerbung • Retro Roleplay • Dienst & Verantwortung</p>
+            <p>Bewerbung • Retro Roleplay • Dienst, Verantwortung & Teamarbeit</p>
 
-            <div class="pillrow">
-              <div class="pill"><strong>Name:</strong> Jeff Jeremain</div>
-              <div class="pill"><strong>Visum:</strong> 14</div>
-              <div class="pill"><strong>Alter IC:</strong> 36</div>
-              <div class="pill"><strong>Alter OOC:</strong> 19</div>
+            <div class="pills">
+              <span class="pill"><strong>Name:</strong> Jeff Jeremain</span>
+              <span class="pill"><strong>Visum:</strong> 14</span>
+              <span class="pill"><strong>Alter IC:</strong> 36</span>
+              <span class="pill"><strong>Alter OOC:</strong> 19</span>
             </div>
           </div>
         </section>
 
-        <aside class="seal" aria-label="Kurzprofil">
+        <aside class="seal">
           <div class="kicker">Integrity • Service • Respect</div>
           <div class="small">
-            Seriöses, dezentes Sheriff-Design<br>
-            mit Gold-Akzenten & Emblem-Stil
+            Dezentes Sheriff-Design mit Wappen, Badge & Gold-Akzenten
           </div>
         </aside>
       </div>
+
+      <div class="divider" aria-hidden="true"></div>
     </header>
 
-    <section class="content">
-      <article class="card letter" aria-label="Bewerbungstext">
+    <section class="main">
+      <article class="card letter">
         <h2>Schriftliche Bewerbung</h2>
         Sehr geehrtes Sheriff Department,
         <br><br>
-        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es, aktiv zur Sicherheit der Stadt
-        beizutragen und das Department zuverlässig, respektvoll und professionell zu vertreten.
+        hiermit bewerbe ich mich als Mitglied Ihres Departments. Mein Ziel ist es, die öffentliche Sicherheit
+        aktiv zu unterstützen und das Department zuverlässig, respektvoll und professionell zu vertreten.
         <br><br>
-        Ich lege großen Wert auf Disziplin, Teamarbeit und einen sauberen Umgangston. Mir ist bewusst, dass die Arbeit
-        im Department nicht nur Präsenz, sondern auch Verantwortung bedeutet: ruhiges Handeln in stressigen Situationen,
-        klare Kommunikation und der korrekte Umgang mit Bürgern stehen für mich an erster Stelle.
+        Ich lege großen Wert auf Disziplin, Teamarbeit und einen sauberen Umgangston. Mir ist bewusst, dass der Dienst
+        nicht nur Präsenz bedeutet, sondern auch Verantwortung: ruhiges Handeln in stressigen Situationen,
+        klare Kommunikation und korrektes Auftreten gegenüber Bürgern stehen für mich an erster Stelle.
         <br><br>
-        Durch meine Visumstufe 14 bringe ich bereits eine solide Stadterfahrung mit. Ich kenne wichtige Orte und Wege,
+        Durch meine Visumstufe 14 bringe ich eine solide Stadterfahrung mit. Ich kenne wichtige Orte und Routen,
         kann Situationen schnell einschätzen und bleibe auch unter Druck konzentriert. Zusätzlich bin ich bereit,
         mich an interne Abläufe, Hierarchien und Dienstvorschriften zu halten und mich stetig weiterzuentwickeln.
         <br><br>
-        Ich würde mich freuen, die Chance zu bekommen, mich im persönlichen Gespräch oder in einer Probephase
+        Ich würde mich freuen, die Chance zu erhalten, mich in einem persönlichen Gespräch oder in einer Probephase
         zu beweisen. Vielen Dank für Ihre Zeit und die Bearbeitung meiner Bewerbung.
         <div class="signature">
           Mit freundlichen Grüßen<br>
@@ -430,8 +462,25 @@
         </div>
       </article>
 
-      <aside class="card side" aria-label="Daten & Stärken">
-        <h3>Steckbrief</h3>
+      <aside class="card side">
+        <h2>Steckbrief</h2>
+
+        <!-- small shield emblem -->
+        <div style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
+          <svg class="shield" viewBox="0 0 100 120" width="42" height="42" aria-hidden="true">
+            <path d="M50 4c18 10 34 10 46 12v40c0 30-21 52-46 60C25 108 4 86 4 56V16C16 14 32 14 50 4z"/>
+            <path class="inner" d="M50 20c12 7 24 7 32 8v28c0 19-13 33-32 39C31 89 18 75 18 56V28c8-1 20-1 32-8z"/>
+          </svg>
+          <div>
+            <div style="font-family:Oswald,Inter,sans-serif; text-transform:uppercase; letter-spacing:.7px; color:var(--gold); font-weight:700;">
+              Deputy Applicant
+            </div>
+            <div style="color:var(--muted2); font-size:13px; line-height:1.4;">
+              Bereitschaft • Ordnung • Teamplay
+            </div>
+          </div>
+        </div>
+
         <div class="kv">
           <div class="row">
             <div class="k">Name</div>
@@ -451,30 +500,26 @@
           </div>
         </div>
 
-        <h3 style="margin-top:16px;">Stärken</h3>
-        <div class="chips" aria-label="Stärken">
+        <h2 style="margin-top:14px;">Stärken</h2>
+        <div class="chips">
           <div class="chip">Ruhig unter Druck</div>
           <div class="chip">Teamfähig</div>
           <div class="chip">Respektvoll</div>
           <div class="chip">Zuverlässig & pünktlich</div>
-          <div class="chip">Saubere Kommunikation</div>
+          <div class="chip">Klare Kommunikation</div>
           <div class="chip">Lernbereit</div>
         </div>
 
-        <div class="note">
-          Hinweis: Wenn du willst, kann ich hier zusätzlich
-          <b>„Erfahrung / Vorstrafenfrei / Verfügbarkeit / RP-Stil“</b>
-          reinschreiben (ohne deinen Text zu verändern).
+        <div class="btnrow">
+          <a class="btn" href="#" onclick="window.print(); return false;">🖨️ Drucken / PDF</a>
+          <a class="btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">⬆️ Nach oben</a>
         </div>
       </aside>
     </section>
 
-    <footer class="footer">
+    <footer>
       <div>Retro Roleplay – Sheriff Department Bewerbung</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn" href="#" onclick="window.print(); return false;">🖨️ Drucken / PDF</a>
-        <a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">⬆️ Nach oben</a>
-      </div>
+      <div>Jeff Jeremain • Visum 14</div>
     </footer>
   </main>
 </body>
